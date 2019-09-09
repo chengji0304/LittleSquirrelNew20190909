@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="324dp"
+        android:layout_height="221dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/user_bg_shape_tel_state">
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            android:padding="2dp"
+            android:textColor="#0F8BFF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登录方法"/>
+        <ImageView
+            android:layout_marginTop="12dp"
+            android:layout_width="304dp"
+            android:layout_height="123dp"
+            android:src="@drawable/icon_logintips"/>
+        <Button
+            android:layout_marginTop="10dp"
+            android:id="@+id/btn_cancel"
+            android:layout_width="93dp"
+            android:layout_height="28dp"
+            android:background="@drawable/user_cancel_box"
+            android:layout_gravity="center"
+            android:text="关闭教程"
+            android:textStyle="bold"
+            android:textColor="#0285FF"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+</RelativeLayout>

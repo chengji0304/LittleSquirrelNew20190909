@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="247dp"
+        android:layout_height="200dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/user_bg_shape_tel_state">
+     <LinearLayout
+         android:layout_marginTop="14dp"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+         android:gravity="center">
+         <ImageView
+             android:layout_width="10dp"
+             android:layout_height="10dp"
+             android:src="@drawable/icon_warn"/>
+         <TextView
+             android:textSize="11sp"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="手机号"/>
+         <TextView
+             android:id="@+id/tv_user_mobile"
+             android:textColor="#ff0390ff"
+             android:textSize="11sp"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="136 6666 6666"/>
+         <TextView
+             android:textSize="11sp"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="还未注册"/>
+     </LinearLayout>
+        <TextView
+            android:textSize="11sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请用微信扫一扫下图，使用小程序登录开箱"/>
+        <ImageView
+            android:layout_marginTop="12dp"
+            android:id="@id/img_user_qrcode"
+            android:layout_width="87dp"
+            android:layout_height="87dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/login_qrcode_border_shape"
+            android:padding="3dp"
+            android:src="@drawable/login_qrcode" />
+        <TextView
+            android:visibility="gone"
+            android:layout_marginTop="12dp"
+            android:id="@id/tv_tel_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="167 8903 7890"
+            android:textColor="#ff0390ff"
+            android:textSize="21sp" />
+        <TextView
+            android:visibility="gone"
+            android:layout_marginTop="6dp"
+            android:id="@id/tv_tip_03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="2dp"
+            android:text="本次投递的环保金将计入此账号"
+            android:textColor="#ff999999"
+            android:textSize="9sp" />
+        <LinearLayout
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true" >
+            <Button
+               android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:id="@+id/btn_close"
+                android:layout_width="87dp"
+                android:layout_height="33dp"
+                android:background="@drawable/user_btn_shape_133x33dp_green"
+                android:text="更换手机号"
+                android:textColor="#ffffffff"
+                android:textSize="11.0sp" />
+
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

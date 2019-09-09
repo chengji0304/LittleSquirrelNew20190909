@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="247dp"
+        android:layout_height="200dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/user_bg_shape_tel_state">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center"
+            android:id="@+id/user_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/user_image"
+            app:civ_border_width="1dp"
+            app:civ_border_color="#24E288"/>
+        <TextView
+            android:textSize="10sp"
+            android:padding="2dp"
+            android:textColor="#999999"
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="木头人"/>
+
+        <TextView
+            android:layout_marginTop="12dp"
+            android:id="@id/tv_tel_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="167 8903 7890"
+            android:textColor="#ff0390ff"
+            android:textSize="21sp" />
+        <TextView
+            android:layout_marginTop="6dp"
+            android:id="@id/tv_tip_03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="2dp"
+            android:text="本次投递的环保金将计入此账号"
+            android:textColor="#ff999999"
+            android:textSize="9sp" />
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true" >
+            <Button
+
+                android:layout_weight="1"
+                android:id="@+id/btn_change"
+                android:layout_width="87dp"
+                android:layout_height="33dp"
+
+                android:background="@drawable/user_btn_shape_tel_right_close"
+                android:text="更换手机号"
+                android:textColor="#ffffffff"
+                android:textSize="11.0sp" />
+            <Button
+                android:layout_marginLeft="17dp"
+                android:layout_weight="1"
+                android:id="@+id/btn_open"
+                android:layout_width="87dp"
+                android:layout_height="33dp"
+
+                android:background="@drawable/user_btn_shape_tel_right_ok"
+                android:text="开箱"
+                android:textColor="#ffffffff"
+                android:textSize="11.0sp" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
