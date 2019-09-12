@@ -76,16 +76,20 @@ public class UserTelLoginDialog extends DialogFragment {
 //        // 去掉标题 死恶心死恶心的
 //        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        getDialog().getWindow().setGravity(Gravity.CENTER);
-        Window dialogWindow =  getDialog().getWindow();
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        dialogWindow.setBackgroundDrawableResource(android.R.color.transparent);
-        // 去掉标题 死恶心死恶心的
-        dialogWindow.setGravity(Gravity.TOP|Gravity.CENTER_VERTICAL);
+//        getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//        // 去掉标题 死恶心死恶心的
+//        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getDialog().getWindow().setGravity(Gravity.CENTER);
+        Window dialogWindow=  getDialog().getWindow();
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getDialog().getWindow().setGravity(Gravity.CENTER);
+        // set cancel on touch outside
+        // getDialog().setCanceledOnTouchOutside(onTouchOutside);
         dialogWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-       // dialogWindow.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        dialogWindow.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         //设置margin为屏幕的20%
         WindowManager.LayoutParams lps = dialogWindow.getAttributes();
-        lps.verticalMargin = 0.2f;
+        lps.verticalMargin = -0.2f;
         dialogWindow.setAttributes(lps);
         // set cancel on touch outside
         getDialog().setCanceledOnTouchOutside(onTouchOutside);
@@ -107,7 +111,11 @@ public class UserTelLoginDialog extends DialogFragment {
 
         Glide.with(this)
                 .load(imgUrl)
+               // .load(avatar_url.trim())
+                .error( R.drawable.icon_user)
+                .fallback( R.drawable.icon_user)
                 .skipMemoryCache(true)
+                //.skipMemoryCache(true)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存
                 .into(ivUser);

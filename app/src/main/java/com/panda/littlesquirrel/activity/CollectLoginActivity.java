@@ -144,15 +144,62 @@ public class CollectLoginActivity extends BaseActivity {
         initBanner();
         btnMyRecycler.setVisibility(View.GONE);
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
-        getOrCode();
+        clearStatus();
+       // getOrCode();
 
 
+    }
+
+
+    private void clearStatus() {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("deviceid", prf.readPrefs(Constant.DEVICEID));
+            //jsonObject.put("deviceid", "3203120008");
+            addSubscription(Constant.HTTP_URL + "php/v1/machine/clearlogin", jsonObject.toString(), new CallBack<String>() {
+                @Override
+                public void onStart() {
+
+                }
+
+                @Override
+                public void onCompleted() {
+
+                }
+
+                @Override
+                public void onError(ApiException e) {
+                    openActivity(UserSelectActivity.class);
+                }
+
+                @Override
+                public void onSuccess(String s) {
+                    Logger.e("s--->" + s);
+                    com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSON.parseObject(s);
+                    String stateCode = jsonObject.getString("stateCode");
+                    if (stateCode.equals("1")) {
+                        com.alibaba.fastjson.JSONObject object = com.alibaba.fastjson.JSON.parseObject(jsonObject.getString("result"));
+                        String status = object.getString("status");
+                        if (status.equals("1")) {
+                            getOrCode();
+                        } else {
+                            //故障页面
+                            openActivity(UserSelectActivity.class);
+                        }
+                    }
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void getOrCode() {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("deviceID", prf.readPrefs(Constant.DEVICEID));
+           // jsonObject.put("deviceID", "3203120008");
             addSubscription(Constant.HTTP_URL + "machine/QRCode/recycler", jsonObject.toString(), new CallBack<String>() {
                 @Override
                 public void onStart() {
@@ -186,7 +233,7 @@ public class CollectLoginActivity extends BaseActivity {
                         //initTimer();
                         timer = new Timer();
                         MyTimerTask myTimerTask = new MyTimerTask();//定时器
-                        timer.schedule(myTimerTask, 3000, 5000);//每隔5秒
+                        timer.schedule(myTimerTask, 1000, 5000);//每隔5秒
 
                     }
 

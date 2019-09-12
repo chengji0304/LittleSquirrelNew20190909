@@ -273,7 +273,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                             // Log.e("SerialPortUtils", "数据监听：" + reciveData);
                             String[] re = reciveData.toString().split("@");
                             if (re.length >= 1 && re[0].length() > 1) {
-                                Logger.e("处理--->" + re[0]);
+                               // Logger.e("处理--->" + re[0]);
                                 getFindData(re[0]);
                             }
                             reciveData = new StringBuilder();
@@ -364,7 +364,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         @Override
         public void run() {
             Intent mIntent = new Intent(Constant.ACTION_WATCHDOG_KICK);//喂狗
-            Logger.e("发送喂狗，全军出击");
+          //  Logger.e("发送喂狗，全军出击");
             sendBroadcast(mIntent);
 
         }

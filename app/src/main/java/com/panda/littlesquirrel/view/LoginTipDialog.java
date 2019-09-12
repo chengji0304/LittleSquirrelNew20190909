@@ -28,15 +28,25 @@ public class LoginTipDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // 设置背景透明
         Window dialogWindow =  getDialog().getWindow();
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        dialogWindow.setBackgroundDrawableResource(android.R.color.transparent);
-        // 去掉标题 死恶心死恶心的
-        dialogWindow.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL);
+       // WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+//        dialogWindow.setBackgroundDrawableResource(android.R.color.transparent);
+//        // 去掉标题 死恶心死恶心的
+//        dialogWindow.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL);
+//        dialogWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        dialogWindow.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+//        //设置margin为屏幕的20%
+//        WindowManager.LayoutParams lps = dialogWindow.getAttributes();
+//        lps.verticalMargin = 0.14f;
+//        dialogWindow.setAttributes(lps);
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogWindow.setGravity(Gravity.CENTER);
+        // set cancel on touch outside
+        // getDialog().setCanceledOnTouchOutside(onTouchOutside);
         dialogWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialogWindow.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogWindow.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         //设置margin为屏幕的20%
         WindowManager.LayoutParams lps = dialogWindow.getAttributes();
-        lps.verticalMargin = 0.14f;
+        lps.verticalMargin = -0.14f;
         dialogWindow.setAttributes(lps);
       //  dialogWindow.setGravity(Gravity.LEFT | Gravity.TOP);
 //        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);

@@ -82,7 +82,7 @@ public class PrepareLoginActivity extends BaseActivity {
     RelativeLayout activityCollectLogin;
     private PreferencesUtil prf;
     private ArrayList<Integer> images;
-    private LoginTipDialog dialog = new LoginTipDialog();
+    private LoginTipDialog dialog;
     private Timer timer = null;
 
     @Override
@@ -91,8 +91,9 @@ public class PrepareLoginActivity extends BaseActivity {
         ScreenAdaptUtil.setCustomDesity(this, getApplication(), 360);
         setContentView(R.layout.activity_prepare_login);
         ButterKnife.bind(this);
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+      //  Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         prf = new PreferencesUtil(this);
+
         initData();
 
     }
@@ -102,6 +103,7 @@ public class PrepareLoginActivity extends BaseActivity {
         initBanner();
         btnMyRecycler.setVisibility(View.GONE);
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
+        initTimer();
         timer = new Timer();
         MyTimerTask myTimerTask = new MyTimerTask();//定时器
         timer.schedule(myTimerTask, 1000, 5000);//每隔5秒
@@ -135,7 +137,9 @@ public class PrepareLoginActivity extends BaseActivity {
     private void getScanRecycler() {
         try {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("deviceID", prf.readPrefs(Constant.DEVICEID));
+            jsonObject.put("deviceid", prf.readPrefs(Constant.DEVICEID));
+            //3203120008
+            //jsonObject.put("deviceID","3203120008");
             addSubscription(Constant.HTTP_URL + "php/v1/machine/getscanuser", jsonObject.toString(), new CallBack<String>() {
                 @Override
                 public void onStart() {
@@ -149,7 +153,7 @@ public class PrepareLoginActivity extends BaseActivity {
 
                 @Override
                 public void onError(ApiException e) {
-
+                    openActivity(UserSelectActivity.class);
                 }
 
                 @Override
@@ -163,18 +167,32 @@ public class PrepareLoginActivity extends BaseActivity {
                         String phone_num = object.getString("phone_num");
                         String nick_name = object.getString("nick_name");
                         String avatar_url = object.getString("avatar_url");
-                        if (!StringUtil.isEmpty(phone_num)) {
 
+                        if(StringUtil.isEmpty(open_id)){
+
+                        }else if(!StringUtil.isEmpty(open_id)&&!StringUtil.isEmpty(phone_num)&&!StringUtil.isEmpty(avatar_url)){
+                            if(timer!=null){
+                              timer.cancel();
+                            }
+                            if(dialog!=null){
+                                dialog.dismiss();
+                            }
+                           // prf.writePrefs(Constant.USER_IMAGE, avatar_url.trim());
                             Intent intent = new Intent(PrepareLoginActivity.this, UserOnLoadingActivity.class);
                             intent.putExtra("phone_num", phone_num);
                             intent.putExtra("nick_name", nick_name);
-                            intent.putExtra("avatar_url", avatar_url);
+                            intent.putExtra("avatar_url", avatar_url.trim());
                             startActivity(intent);
+                            finish();
+                           // Logger.e("zhucechengg");
                         }
 //                        String mobile = object.getString("account");
 ////                        prf.writePrefs(Constant.COLLECTOR_MOBILE, mobile);
 ////                        openActivity(RecylerSelectActivity.class);
 ////                        finish();
+                    }else{
+                        //故障
+                      //  openActivity(UserSelectActivity.class);
                     }
 
                 }
@@ -237,26 +255,33 @@ public class PrepareLoginActivity extends BaseActivity {
         if (timer != null) {
             timer.cancel();
         }
+        if(dialog!=null){
+            dialog.dismiss();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        initTimer();
+
     }
 
     private void initTimer() {
-        backAndTime.setTimer(100);
+        backAndTime.setTimer(120);
         backAndTime.setBackVisableStatue(true);
         backAndTime.setVisableStatue(Boolean.valueOf(true));
         backAndTime.start();
         backAndTime.setOnBackListener(new BackAndTimerView.OnBackListener() {
             @Override
             public void onBack() {
-                if(dialog!=null){
-                    dialog.dismiss();
-                }
-                clearStatus();
+//                if(dialog!=null){
+//                    dialog.dismiss();
+//                }
+//                if(timer!=null){
+//                    timer.cancel();
+//                }
+               openActivity(UserSelectActivity.class);
+              //  clearStatus();
 //                openActivity(UserSelectActivity.class);
 //                finish();
 //                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -267,10 +292,14 @@ public class PrepareLoginActivity extends BaseActivity {
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
             @Override
             public void onTimerFinish() {
-                if (dialog != null) {
-                    dialog.dismiss();
-                }
-                clearStatus();
+//                if (dialog != null) {
+//                    dialog.dismiss();
+//                }
+//                if(timer!=null){
+//                    timer.cancel();
+//                }
+                openActivity(UserSelectActivity.class);
+            //    clearStatus();
 //                openActivity(UserSelectActivity.class);
 //                finish();
 //                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -279,49 +308,7 @@ public class PrepareLoginActivity extends BaseActivity {
         });
     }
 
-    private void clearStatus() {
-        try{
-            JSONObject jsonObject=new JSONObject();
-            jsonObject.put("deviceid",prf.readPrefs(Constant.DEVICEID));
-            addSubscription(Constant.HTTP_URL + "php/v1/machine/clearlogin", jsonObject.toString(), new CallBack<String>() {
-                @Override
-                public void onStart() {
 
-                }
-
-                @Override
-                public void onCompleted() {
-
-                }
-
-                @Override
-                public void onError(ApiException e) {
-
-                }
-
-                @Override
-                public void onSuccess(String s) {
-                    Logger.e("s--->"+s);
-                    com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSON.parseObject(s);
-                    String stateCode = jsonObject.getString("stateCode");
-                    if(stateCode.equals("1")){
-                        com.alibaba.fastjson.JSONObject object = com.alibaba.fastjson.JSON.parseObject(jsonObject.getString("result"));
-                        String status=object.getString("status");
-                        if(status.equals("1")){
-                            openActivity(UserSelectActivity.class);
-                            finish();
-                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                        }else{
-                            //故障页面
-                        }
-                    }
-
-                }
-            });
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void getFindData(String reciveData) {
@@ -330,6 +317,7 @@ public class PrepareLoginActivity extends BaseActivity {
 
     @OnClick(R.id.iv_login_tip)
     public void onViewClicked() {
+        dialog = new LoginTipDialog();
         dialog.setOnCloseClickListener(new LoginTipDialog.CloseCallBack() {
             @Override
             public void onClose() {

@@ -147,6 +147,8 @@ public class ADBannerActivity extends BaseActivity {
                         banner.start();
                         banner.startAutoPlay();
 
+                    }else{
+                        initBendi();
                     }
 
                 }

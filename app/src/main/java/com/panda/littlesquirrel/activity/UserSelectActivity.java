@@ -227,13 +227,12 @@ public class UserSelectActivity extends BaseActivity {
         sound = getIntent().getStringExtra("type");
         handler = new Handler();
         isLogin = prf.readPrefs(Constant.LOGIN_STATUS);
-        imageUrl = prf.readPrefs(Constant.USER_IMAGE);
         initPollDev();
         initData();
         setListener();
-        Logger.e("lati---》" + prf.readPrefs(Constant.LATI));
+      //  Logger.e("lati---》" + prf.readPrefs(Constant.LATI));
         if (!StringUtil.isEmpty(prf.readPrefs(Constant.LATI))) {
-            Logger.e("deid---》" + prf.readPrefs(Constant.DEVICEID));
+          //  Logger.e("deid---》" + prf.readPrefs(Constant.DEVICEID));
             if (!StringUtil.isEmpty(prf.readPrefs(Constant.DEVICEID))) {
                 tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
                 getCategoryMsg();//获取饮料瓶总数
@@ -270,14 +269,13 @@ public class UserSelectActivity extends BaseActivity {
     }
 
     /*
-     看门狗。。。。
-     */
+//     看门狗。。。。
+//     */
     private void DogWatch() {
 
         Intent intent = new Intent(Constant.ACTION_WATCHDOG_INIT);
         sendBroadcast(intent);
 
-        //  handler.postDelayed()
     }
 
     /*
@@ -354,7 +352,7 @@ public class UserSelectActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(String s) {
-                    Logger.e("s--->" + s);
+                   // Logger.e("s--->" + s);
                     //{"stateCode":1,"errorMessage":"处理成功","result":{"price":0.00,"countOrWeight":0.0,"category":"饮料瓶","canFullStatus":0}}
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(s);
                     String stateCode = jsonObject.getString("stateCode");
@@ -370,12 +368,13 @@ public class UserSelectActivity extends BaseActivity {
                             }
                         }
                         // totalCount=totalCount.substring(0,totalCount.indexOf("."));
+
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 serialPortUtils.sendSerialPort("androidC56:1;");
                             }
-                        }, 1000);
+                        }, 500);
                     } else {
 
                     }
@@ -434,7 +433,7 @@ public class UserSelectActivity extends BaseActivity {
                     //获取设备所有信息
                     serialPortUtils.sendSerialPort("androidC56:1;");
                 }
-            }, 1000);
+            }, 500);
         }
     }
 
@@ -478,7 +477,7 @@ public class UserSelectActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(String s) {
-                    Logger.e("s--->" + s);
+                  //  Logger.e("s--->" + s);
 
                 }
             });
@@ -555,14 +554,14 @@ public class UserSelectActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(String s) {
-                    Logger.e("s--->" + s);
+                   // Logger.e("s--->" + s);
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(s);
                     String stateCode = jsonObject.getString("stateCode");
                     if (stateCode.equals("1")) {
                         com.alibaba.fastjson.JSONObject object = JSON.parseObject(jsonObject.getString("result"));
                         deviceID = object.getString("deviceID");
                         signKey = object.getString("signKey");
-                        Logger.e("signKey--->" + signKey);
+                        //Logger.e("signKey--->" + signKey);
                         tvDeviceNum.setText("设备编号:" + deviceID);
                         prf.writePrefs(Constant.DEVICEID, deviceID);
                         prf.writePrefs(Constant.SIGNKEY, signKey);
@@ -574,7 +573,7 @@ public class UserSelectActivity extends BaseActivity {
                 }
             });
         } catch (Exception e) {
-            Logger.e("e--->" + e.getMessage());
+           // Logger.e("e--->" + e.getMessage());
 
         }
     }
@@ -927,15 +926,18 @@ public class UserSelectActivity extends BaseActivity {
             if (countTimerView != null) {
                 countTimerView.cancel();
             }
+            imageUrl = prf.readPrefs(Constant.USER_IMAGE);
+            userImage.setVisibility(View.VISIBLE);
             Glide.with(this)
                     .load(imageUrl)
-                    .placeholder(R.drawable.icon_user)
+                    .error( R.drawable.icon_user)
+                    .fallback(R.drawable.icon_user)
                     .skipMemoryCache(true)
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存
                     .into(userImage);
-            btnBigPiece.setVisibility(View.INVISIBLE);
-            btnGuide.setVisibility(View.INVISIBLE);
+            btnBigPiece.setVisibility(View.GONE);
+            btnGuide.setVisibility(View.GONE);
             btnMyRecycler.setVisibility(View.GONE);
             initTimer();
 

@@ -137,7 +137,7 @@ public class UserTeleActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_tele);
         ButterKnife.bind(this);
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+      //  Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         //  System.loadLibrary("serial_port");
 //        serialPort = serialPortUtils.openSerialPort();
 //        setListener();
@@ -149,7 +149,9 @@ public class UserTeleActivity extends BaseActivity {
     private void initData() {
         sendTimerBoaadCastReceiver(this);
         initBanner();
+        //3203120008
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
+        //tvDeviceNum.setText("设备编号:" + "3203120008");
         ForbiddenSysKeyBoardUtils.bannedSysKeyBoard(UserTeleActivity.this, edTel);
         // ForbiddenSysKeyBoardUtils.bannedSysKeyBoard(UserTeleActivity.this,);
         btnMyRecycler.setVisibility(View.GONE);
@@ -268,13 +270,22 @@ public class UserTeleActivity extends BaseActivity {
     }
 
     private void initTimer() {
-        backAndTime.setTimer(280);
+        backAndTime.setTimer(120);
         backAndTime.setBackVisableStatue(true);
         backAndTime.setVisableStatue(Boolean.valueOf(true));
         backAndTime.start();
         backAndTime.setOnBackListener(new BackAndTimerView.OnBackListener() {
             @Override
             public void onBack() {
+                if(timer!=null){
+                    timer.cancel();
+                }
+                if(rDialog!=null){
+                    rDialog.dismiss();
+                }
+                if(lDialog!=null){
+                    lDialog.dismiss();
+                }
                 openActivity(UserSelectActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -284,6 +295,15 @@ public class UserTeleActivity extends BaseActivity {
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
             @Override
             public void onTimerFinish() {
+                if(timer!=null){
+                    timer.cancel();
+                }
+                if(rDialog!=null){
+                    rDialog.dismiss();
+                }
+                if(lDialog!=null){
+                    lDialog.dismiss();
+                }
                 openActivity(UserSelectActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -351,82 +371,7 @@ public class UserTeleActivity extends BaseActivity {
                         }
                     }.start();
                 } else {
-                    clearStatus();
-                    //  mobileLogin();
-                    //getQrCode();
-                    /*
-                    lDialog=new UserTelLoginDialog();
-                    lDialog.setContent(StringUtil.getPhoneText(edTel));
-                    lDialog.setImage("https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eozudZlb6axHfJLSFt7FHmnMfxQ5wfiapn37T1pEia958VvHrwl2ZMrDRCm8ianTiat5x5udBsDWZm1Bg/132");
-                    lDialog.setUserName("刘老板");
-                    lDialog.setOnConfirmClickListener(new UserTelLoginDialog.ConfirmCallBack() {
-                        @Override
-                        public void onConfirm() {
-                            //更换手机号
-                            lDialog.dismiss();
-                        }
-                    });
-                    lDialog.setOnCloseClickListener(new UserTelLoginDialog.CloseCallBack() {
-                        @Override
-                        public void onClose() {
-                          //开箱
-
-                        }
-                    });
-                    lDialog.show(getFragmentManager(),"user_login");
-                    */
-                    /*
-                    dialog.setContent(StringUtil.getPhoneText(edTel));
-                    dialog.setOnConfirmClickListener(new UserTelRightDialog.ConfirmCallBack() {
-                        @Override
-                        public void onConfirm() {
-                            backAndTime.stop();
-                            dialog.dismiss();
-                            if (timer != null) {
-                                timer.cancel();
-                            }
-                            UserLogin();
-
-                        }
-                    });
-                    dialog.setOnCloseClickListener(new UserTelRightDialog.CloseCallBack() {
-                        @Override
-                        public void onClose() {
-                            if (timer != null) {
-                                timer.cancel();
-                            }
-                            dialog.dismiss();
-                            backAndTime.setTimer(backAndTime.getCurrentTime());
-                            backAndTime.start();
-                        }
-                    });
-                    dialog.show(getFragmentManager(), "tele_config");
-                    */
-                    //倒计时
-                            /*
-                    timer = new CountDownTimer(1000 * 20, 1000) {
-
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            int secondsRemaining = (int) (millisUntilFinished / 1000) - 1;
-                            if (secondsRemaining > 0) {
-
-                            }
-                        }
-
-                        @Override
-                        public void onFinish() {
-//                            if (dialog != null) {
-//                                dialog.dismiss();
-//                            }
-
-                            timer.cancel();
-                            backAndTime.setTimer(backAndTime.getCurrentTime());
-                            backAndTime.start();
-
-                        }
-                    }.start();
-                    */
+                   clearStatus();
                 }
 
 
@@ -482,7 +427,9 @@ public class UserTeleActivity extends BaseActivity {
     private void clearStatus() {
         try {
             JSONObject jsonObject = new JSONObject();
+            //3203120008
             jsonObject.put("deviceid", prf.readPrefs(Constant.DEVICEID));
+            //  jsonObject.put("deviceid", "3203120008");
             addSubscription(Constant.HTTP_URL + "php/v1/machine/clearlogin", jsonObject.toString(), new CallBack<String>() {
                 @Override
                 public void onStart() {
@@ -512,6 +459,7 @@ public class UserTeleActivity extends BaseActivity {
                             mobileLogin();
                         } else {
                             //故障页面
+                            openActivity(UserSelectActivity.class);
                         }
                     }
 
@@ -526,6 +474,7 @@ public class UserTeleActivity extends BaseActivity {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("deviceid", prf.readPrefs(Constant.DEVICEID));
+            // jsonObject.put("deviceid", "3203120008");
             jsonObject.put("phone_num", StringUtil.getPhoneText(edTel));
             addSubscription(Constant.HTTP_URL + "php/v1/machine/mobilelogin", jsonObject.toString(), new CallBack<String>() {
                 @Override
@@ -540,6 +489,7 @@ public class UserTeleActivity extends BaseActivity {
 
                 @Override
                 public void onError(ApiException e) {
+                    //openActivity(UserSelectActivity.class);
 
                 }
 
@@ -551,18 +501,23 @@ public class UserTeleActivity extends BaseActivity {
                     if (stateCode.equals("1")) {
                         final com.alibaba.fastjson.JSONObject object = com.alibaba.fastjson.JSON.parseObject(jsonObject.getString("result"));
                         String status = object.getString("status");
-                        final String phone_num=object.getString("phone_num");
-                        String nick_name=object.getString("nick_name");
-                        final String avatar_url=object.getString("avatar_url");
+                        final String phone_num = object.getString("phone_num");
+                        String nick_name = object.getString("nick_name");
+                        final String avatar_url = object.getString("avatar_url");
                         if (status.equals("1")) {
-                            if(lDialog!=null){
+                            if (timer != null) {
+                                timer.cancel();
+                            }
+                            if (lDialog != null) {
                                 lDialog.dismiss();
                             }
 
-                            if(rDialog!=null){
+                            if (rDialog != null) {
                                 rDialog.dismiss();
                             }
-                            lDialog=new UserTelLoginDialog();
+                            lDialog = new UserTelLoginDialog();
+                            Logger.e("mobile---》" + phone_num);
+                            Logger.e("nick_name---》" + nick_name);
                             lDialog.setContent(phone_num);
                             lDialog.setImage(object.getString("avatar_url"));
                             lDialog.setUserName(nick_name);
@@ -576,26 +531,28 @@ public class UserTeleActivity extends BaseActivity {
                             lDialog.setOnCloseClickListener(new UserTelLoginDialog.CloseCallBack() {
                                 @Override
                                 public void onClose() {
+                                    lDialog.dismiss();
                                     //开箱
                                     prf.writePrefs(Constant.LOGIN_STATUS, "1");
-                                    prf.writePrefs(Constant.USER_MOBILE,phone_num);
-                                    prf.writePrefs(Constant.USER_IMAGE,avatar_url);
+                                    prf.writePrefs(Constant.USER_MOBILE, phone_num);
+                                    prf.writePrefs(Constant.USER_IMAGE, avatar_url);
                                     openActivity(UserTypeSelectActivity.class);
                                     finish();
 
                                 }
                             });
-                            lDialog.show(getFragmentManager(),"user_login");
-                        } else if(status.equals("2")){
+                            lDialog.show(getFragmentManager(), "user_login");
+                        } else if (status.equals("2")) {
                             //首次登录
                             getQrCode();
 
-                        }else{
+                        } else {
                             //故障
+                            openActivity(UserSelectActivity.class);
                         }
                     } else {
                         //故障
-
+                        openActivity(UserSelectActivity.class);
 
                     }
 
@@ -609,7 +566,9 @@ public class UserTeleActivity extends BaseActivity {
     private void getQrCode() {
         try {
             JSONObject jsonObject = new JSONObject();
+            //3203120008
             jsonObject.put("deviceid", prf.readPrefs(Constant.DEVICEID));
+            //jsonObject.put("deviceid", "3203120008");
             addSubscription(Constant.HTTP_URL + "php/v1/machine/getqrcode", jsonObject.toString(), new CallBack<String>() {
                 @Override
                 public void onStart() {
@@ -636,10 +595,8 @@ public class UserTeleActivity extends BaseActivity {
                         String qrCode = object.getString("qrcode");
                         bitmap = Base64Utils.base64ToBitmap(qrCode);
                         // .setImageBitmap(bitmap);
-                        if(lDialog!=null){
-                            lDialog.dismiss();
-                        }
-                        if(rDialog!=null){
+
+                        if (rDialog != null) {
                             rDialog.dismiss();
                         }
                         rDialog = new UserTelRegistDialog();
@@ -653,6 +610,9 @@ public class UserTeleActivity extends BaseActivity {
                             @Override
                             public void onClose() {
                                 rDialog.dismiss();
+                                if (timer != null) {
+                                    timer.cancel();
+                                }
                             }
                         });
                         rDialog.show(getFragmentManager(), "regist_dialog");
@@ -665,6 +625,7 @@ public class UserTeleActivity extends BaseActivity {
             e.printStackTrace();
         }
     }
+
     private class MyTimerTask extends TimerTask {
 
         @Override
@@ -695,7 +656,9 @@ public class UserTeleActivity extends BaseActivity {
     private void getScanRecycler() {
         try {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("deviceID", prf.readPrefs(Constant.DEVICEID));
+            //3203120008
+            jsonObject.put("deviceid", prf.readPrefs(Constant.DEVICEID));
+            //jsonObject.put("deviceid", "3203120008");
             addSubscription(Constant.HTTP_URL + "php/v1/machine/getscanuser", jsonObject.toString(), new CallBack<String>() {
                 @Override
                 public void onStart() {
@@ -709,7 +672,7 @@ public class UserTeleActivity extends BaseActivity {
 
                 @Override
                 public void onError(ApiException e) {
-
+                  //  openActivity(UserSelectActivity.class);
                 }
 
                 @Override
@@ -723,22 +686,39 @@ public class UserTeleActivity extends BaseActivity {
                         String phone_num = object.getString("phone_num");
                         String nick_name = object.getString("nick_name");
                         String avatar_url = object.getString("avatar_url");
-                        prf.writePrefs(Constant.USER_IMAGE, avatar_url);
-                        if (!StringUtil.isEmpty(open_id) && StringUtil.isEmpty(phone_num)) {
-                            openActivity(PrepareLoginActivity.class);
-                        } else {
 
+                        if (StringUtil.isEmpty(open_id)) {
+
+                        } else if (!StringUtil.isEmpty(open_id) && StringUtil.isEmpty(phone_num)) {
+                            if(rDialog!=null){
+                                rDialog.dismiss();
+                            }
+                            if(timer!=null){
+                                timer.cancel();
+                            }
+                            openActivity(PrepareLoginActivity.class);
+                        } else if (!StringUtil.isEmpty(phone_num) && !StringUtil.isEmpty(phone_num)) {
+                          // Logger.e("info--->"+0);
+                          if(rDialog!=null){
+                             rDialog.dismiss();
+                          }
+                            if(timer!=null){
+                               timer.cancel();
+                            }
                             Intent intent = new Intent(UserTeleActivity.this, UserOnLoadingActivity.class);
                             intent.putExtra("phone_num", phone_num);
                             intent.putExtra("nick_name", nick_name);
-                            intent.putExtra("avatar_url", avatar_url);
+                            intent.putExtra("avatar_url", avatar_url.trim());
                             startActivity(intent);
                             finish();
+                          //  prf.writePrefs(Constant.USER_IMAGE, avatar_url);
+                           // prf.writePrefs(Constant.LOGIN_STATUS, "1");
+                           // Logger.e("info--->"+1);
+                           // openActivity(UserOnLoadingActivity.class);
+                            //Logger.e("info--->"+2);
+                            //finish();
                         }
-//                        String mobile = object.getString("account");
-////                        prf.writePrefs(Constant.COLLECTOR_MOBILE, mobile);
-////                        openActivity(RecylerSelectActivity.class);
-////                        finish();
+
                     }
 
                 }
@@ -747,6 +727,7 @@ public class UserTeleActivity extends BaseActivity {
             e.printStackTrace();
         }
     }
+
     /*
     private void UserLogin() {
         try {
@@ -800,12 +781,14 @@ public class UserTeleActivity extends BaseActivity {
             ctimer.cancel();
         }
         //userDigitalKeyboard.release();
-        if(lDialog!=null){
-            lDialog.dismiss();
-        }
-
         if(rDialog!=null){
             rDialog.dismiss();
+        }
+        if(lDialog!=null){
+           lDialog.dismiss();
+        }
+        if (timer != null) {
+            timer.cancel();
         }
 
     }

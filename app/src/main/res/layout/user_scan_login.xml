@@ -129,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="请在微信小程序中点击扫一扫操作"
+                android:text="使用微信「扫一扫」扫码开箱"
                 android:layout_marginBottom="12dp"
                 android:textColor="#ffffffff"
                 android:textSize="9sp" />

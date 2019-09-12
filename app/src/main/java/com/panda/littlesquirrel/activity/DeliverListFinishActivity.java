@@ -136,7 +136,7 @@ public class DeliverListFinishActivity extends BaseActivity {
     }
 
     private void initTimer() {
-        backAndTime.setTimer(280);
+        backAndTime.setTimer(120);
         backAndTime.setVisableStatue(Boolean.valueOf(true));
         backAndTime.setBackVisableStatue(false);
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
@@ -156,7 +156,8 @@ public class DeliverListFinishActivity extends BaseActivity {
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
         Glide.with(this)
                 .load(imageUrl)
-                .placeholder(R.drawable.icon_user)
+                .error( R.drawable.icon_user)
+                .fallback( R.drawable.icon_user)
                 .skipMemoryCache(true)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存
@@ -389,8 +390,12 @@ public class DeliverListFinishActivity extends BaseActivity {
 
                 @Override
                 public void onError(ApiException e) {
-                    backAndTime.setTimer(backAndTime.getCurrentTime());
-                    backAndTime.start();
+                    Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessActivity.class);
+//                    intent.putExtra("money", totalMoney);
+//                    intent.putExtra("jifen", totalJifen);
+//                    startActivity(intent);
+//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                    finish();
                 }
 
                 @Override

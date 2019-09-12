@@ -132,12 +132,12 @@ public class UserTypeSelectActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_type_select);
         ButterKnife.bind(this);
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+       // Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         System.loadLibrary("serial_port");
         serialPort = serialPortUtils.openSerialPort();
         mStartHandler = new Handler();
         reciveData = new StringBuilder();
-        handle = new Handler();
+       // handle = new Handler();
         prf = new PreferencesUtil(this);
         saveList = prf.getDataList(Constant.SAVE_LIST);
         prfList = prf.getDataList(Constant.DELIVER_LIST);
@@ -150,14 +150,14 @@ public class UserTypeSelectActivity extends BaseActivity {
     public void getFindData(final String s) {
         Logger.e("UserTypeSelectActivity--->" + s);
         if (!StringUtil.isEmpty(s)) {
-            if (s.startsWith("E27:") || s.contains("27")) {
+            if (s.contains("E27:")) {
                 openStatus = "1";
                 btnOpen.setEnabled(true);
                 backAndTime.stop();
                 btnOpen.setText("投递完成");
                 btnOpen.setTextColor(Color.parseColor("#FFFFFF"));
                 openBoxNotify();
-            } else if (s.startsWith("E28:")) {
+            } else if (s.contains("E28:")) {
                 closeStatus = "1";
                 if (number.equals("6")) {
 
@@ -526,7 +526,8 @@ public class UserTypeSelectActivity extends BaseActivity {
         initBanner();
         Glide.with(this)
                 .load(imageUrl)
-                .placeholder(R.drawable.icon_user)
+                .error( R.drawable.icon_user)
+                .fallback( R.drawable.icon_user)
                 .skipMemoryCache(true)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存
@@ -735,7 +736,12 @@ public class UserTypeSelectActivity extends BaseActivity {
 //                  btnOpen.setText("打开箱门");
 //                  btnOpen.setEnabled(true);
                     //
-                    serialPortUtils.sendSerialPort("androidC51:" + number + ";");
+                    handle.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            serialPortUtils.sendSerialPort("androidC51:" + number + ";");
+                        }
+                    }, 1500);
                 }
 
             }
@@ -842,7 +848,7 @@ public class UserTypeSelectActivity extends BaseActivity {
                                 //关闭投口
                                 serialPortUtils.sendSerialPort("androidC55:" + number + ";");
                             }
-                        }, 500);
+                        }, 800);
 
 //                        timer = new CountDownTimer(1000 * 14, 1000) {
 //

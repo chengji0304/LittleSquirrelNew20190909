@@ -136,10 +136,11 @@ public class DeliverFinishActivity extends BaseActivity {
         initBanner();
         Glide.with(this)
                 .load(imageUrl)
-                .placeholder(R.drawable.icon_user)
+                .error( R.drawable.icon_user)
+                .fallback( R.drawable.icon_user)
                 .skipMemoryCache(true)
                 .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存
+                .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存//设置缓存
                 .into(userImage);
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
         btnMyRecycler.setVisibility(View.GONE);
@@ -327,7 +328,7 @@ public class DeliverFinishActivity extends BaseActivity {
     }
 
     private void initTimer() {
-        backAndTime.setTimer(280);
+        backAndTime.setTimer(120);
         backAndTime.setVisableStatue(Boolean.valueOf(true));
         backAndTime.setBackVisableStatue(false);
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
@@ -521,8 +522,12 @@ public class DeliverFinishActivity extends BaseActivity {
                 @Override
                 public void onError(ApiException e) {
                     //  backAndTime.setBackEnable(true);
-                    backAndTime.setTimer(backAndTime.getCurrentTime());
-                    backAndTime.start();
+//                    Intent intent = new Intent(DeliverFinishActivity.this, DeliverSuccessActivity.class);
+//                    intent.putExtra("money", moeny);
+//                    intent.putExtra("jifen", jifen);
+//                    startActivity(intent);
+//                    finish();
+//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
 
                 @Override

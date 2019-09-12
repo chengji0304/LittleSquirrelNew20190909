@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:textColor="#999999"
             android:textSize="12sp"
-            android:text="2秒后自动打开箱门"/>
+            />
 
     <LinearLayout
         android:orientation="vertical"

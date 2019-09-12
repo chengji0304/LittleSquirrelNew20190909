@@ -26,8 +26,8 @@ public class Constant {
     public static final String ACTION_WATCHDOG_KICK = "android.intent.action.WATCHDOG_KICK";
     public static final String ACTION_WATCHDOG_INIT = "android.intent.action.WATCHDOG_INIT";
     public static final String ACTION_WATCHDOG_STOP = "android.intent.action.WATCHDOG_STOP";
-    //public static final String HTTP_URL = "https://testapi.squirrelf.com/";
-    public static final String HTTP_URL = "https://api.squirrelf.com:10081/";
+    //public static final String HTTP_URL = "https://testapi.squirrelf.com:81/";
+    public static final String HTTP_URL = "https://api.squirrelf.com/";
     public static final String HTTP_URL1 = "https://www.squirrelf.com/";
     public static final String COLLECT_QRCODE = "collect_code";
     public static final String DEVICEID = "deviceID";

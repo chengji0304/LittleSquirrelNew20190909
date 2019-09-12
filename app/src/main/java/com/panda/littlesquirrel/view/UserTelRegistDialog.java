@@ -38,16 +38,24 @@ public class UserTelRegistDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // 设置背景透明
-        Window dialogWindow =  getDialog().getWindow();
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        dialogWindow.setBackgroundDrawableResource(android.R.color.transparent);
-        // 去掉标题 死恶心死恶心的
-        dialogWindow.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL);
+//        getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//        // 去掉标题 死恶心死恶心的
+//        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getDialog().getWindow().setGravity(Gravity.CENTER);
+        // set cancel on touch outside
+        //getDialog().setCanceledOnTouchOutside(onTouchOutside);
+//        getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//        // 去掉标题 死恶心死恶心的
+        Window dialogWindow=  getDialog().getWindow();
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getDialog().getWindow().setGravity(Gravity.CENTER);
+        // set cancel on touch outside
+       // getDialog().setCanceledOnTouchOutside(onTouchOutside);
         dialogWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialogWindow.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogWindow.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         //设置margin为屏幕的20%
         WindowManager.LayoutParams lps = dialogWindow.getAttributes();
-        lps.verticalMargin = 0.2f;
+        lps.verticalMargin = -0.2f;
         dialogWindow.setAttributes(lps);
         // set cancel on touch outside
         getDialog().setCanceledOnTouchOutside(onTouchOutside);

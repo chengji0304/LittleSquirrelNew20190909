@@ -117,6 +117,7 @@ public class UserLoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         prf = new PreferencesUtil(this);
+        clearStatus();
         initData();
     }
 
@@ -124,9 +125,10 @@ public class UserLoginActivity extends BaseActivity {
         sendTimerBoaadCastReceiver(this);
         initBanner();
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
+        //tvDeviceNum.setText("设备编号:" + "3203120008");
         btnMyRecycler.setVisibility(View.GONE);
         //  getUserOrCode();
-        clearStatus();
+
 
     }
 
@@ -134,6 +136,7 @@ public class UserLoginActivity extends BaseActivity {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("deviceid", prf.readPrefs(Constant.DEVICEID));
+            //jsonObject.put("deviceid", "3203120008");
             addSubscription(Constant.HTTP_URL + "php/v1/machine/clearlogin", jsonObject.toString(), new CallBack<String>() {
                 @Override
                 public void onStart() {
@@ -147,7 +150,7 @@ public class UserLoginActivity extends BaseActivity {
 
                 @Override
                 public void onError(ApiException e) {
-
+                    openActivity(UserSelectActivity.class);
                 }
 
                 @Override
@@ -162,6 +165,7 @@ public class UserLoginActivity extends BaseActivity {
                             getUserOrCode();
                         } else {
                             //故障页面
+                          //  openActivity(UserSelectActivity.class);
                         }
                     }
 
@@ -178,8 +182,9 @@ public class UserLoginActivity extends BaseActivity {
     private void getUserOrCode() {
         try {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("deviceID", prf.readPrefs(Constant.DEVICEID));
-            addSubscription(Constant.HTTP_URL + "machine/QRCode/user", jsonObject.toString(), new CallBack<String>() {
+            jsonObject.put("deviceid", prf.readPrefs(Constant.DEVICEID));
+            // jsonObject.put("deviceid", "3203120008");
+            addSubscription(Constant.HTTP_URL + "php/v1/machine/getqrcode", jsonObject.toString(), new CallBack<String>() {
                 @Override
                 public void onStart() {
 
@@ -192,7 +197,7 @@ public class UserLoginActivity extends BaseActivity {
 
                 @Override
                 public void onError(ApiException e) {
-
+                    openActivity(UserSelectActivity.class);
                 }
 
                 @Override
@@ -202,7 +207,7 @@ public class UserLoginActivity extends BaseActivity {
                     String stateCode = jsonObject.getString("stateCode");
                     if (stateCode.equals("1")) {
                         com.alibaba.fastjson.JSONObject object = com.alibaba.fastjson.JSON.parseObject(jsonObject.getString("result"));
-                        String code = object.getString("base64Img");
+                        String code = object.getString("qrcode");
                         bitmap = Base64Utils.base64ToBitmap(code);
                         imgUserQrcode.setImageBitmap(bitmap);
                         // prf.writePrefs(Constant.USER_QRCODE,code);
@@ -218,7 +223,7 @@ public class UserLoginActivity extends BaseActivity {
                         //getScanRecycler();
                     } else {
                         openActivity(UserSelectActivity.class);
-                        finish();
+                       // finish();
                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     }
 
@@ -233,7 +238,7 @@ public class UserLoginActivity extends BaseActivity {
 
         @Override
         public void run() {
-            Logger.e("requestNumber-->" + (requestNumber));
+           // Logger.e("requestNumber-->" + (requestNumber));
 //            requestNumber++;
 //            if (requestNumber >= 24) {
 //                if (timer != null) {
@@ -246,7 +251,6 @@ public class UserLoginActivity extends BaseActivity {
 //            }
             //查询条码
             Logger.e("查询中。。。。");
-            //barCodeQuery();
             getScanRecycler();
 
 
@@ -259,7 +263,8 @@ public class UserLoginActivity extends BaseActivity {
     private void getScanRecycler() {
         try {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("deviceID", prf.readPrefs(Constant.DEVICEID));
+            jsonObject.put("deviceid", prf.readPrefs(Constant.DEVICEID));
+            //jsonObject.put("deviceid", "3203120008");
             addSubscription(Constant.HTTP_URL + "php/v1/machine/getscanuser", jsonObject.toString(), new CallBack<String>() {
                 @Override
                 public void onStart() {
@@ -273,7 +278,7 @@ public class UserLoginActivity extends BaseActivity {
 
                 @Override
                 public void onError(ApiException e) {
-
+                    openActivity(UserSelectActivity.class);
                 }
 
                 @Override
@@ -288,20 +293,19 @@ public class UserLoginActivity extends BaseActivity {
                         String nick_name = object.getString("nick_name");
                         String avatar_url = object.getString("avatar_url");
                         prf.writePrefs(Constant.USER_IMAGE, avatar_url);
-                        if (!StringUtil.isEmpty(open_id) && StringUtil.isEmpty(phone_num)) {
+                        if (StringUtil.isEmpty(open_id)) {
+                        } else if (!StringUtil.isEmpty(open_id) && StringUtil.isEmpty(phone_num)) {
                             openActivity(PrepareLoginActivity.class);
-                        } else {
-
+                        } else if (!StringUtil.isEmpty(open_id) && !StringUtil.isEmpty(phone_num)) {
                             Intent intent = new Intent(UserLoginActivity.this, UserOnLoadingActivity.class);
                             intent.putExtra("phone_num", phone_num);
                             intent.putExtra("nick_name", nick_name);
                             intent.putExtra("avatar_url", avatar_url);
                             startActivity(intent);
+                            finish();
                         }
-//                        String mobile = object.getString("account");
-////                        prf.writePrefs(Constant.COLLECTOR_MOBILE, mobile);
-////                        openActivity(RecylerSelectActivity.class);
-////                        finish();
+                    }else{
+
                     }
 
                 }
@@ -325,13 +329,16 @@ public class UserLoginActivity extends BaseActivity {
     }
 
     public void initTimer() {
-        backAndTime.setTimer(280);
+        backAndTime.setTimer(120);
         backAndTime.setBackVisableStatue(true);
         backAndTime.setVisableStatue(Boolean.valueOf(true));
         backAndTime.start();
         backAndTime.setOnBackListener(new BackAndTimerView.OnBackListener() {
             @Override
             public void onBack() {
+                if(timer!=null){
+                    timer.cancel();
+                }
                 openActivity(UserSelectActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -341,6 +348,9 @@ public class UserLoginActivity extends BaseActivity {
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
             @Override
             public void onTimerFinish() {
+                if(timer!=null){
+                    timer.cancel();
+                }
                 openActivity(UserSelectActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -380,9 +390,9 @@ public class UserLoginActivity extends BaseActivity {
     @OnClick(R.id.btn_switch_tel)
     public void onViewClicked() {
         backAndTime.stop();
-//        Bundle bundle=new Bundle();
-//        bundle.putParcelable("type",info);
-        //     openActivity(UserTeleActivity.class,bundle);
+        if(timer!=null){
+            timer.cancel();
+        }
         openActivity(UserTeleActivity.class);
         finish();
 

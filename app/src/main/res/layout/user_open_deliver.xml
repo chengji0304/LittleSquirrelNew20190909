@@ -27,7 +27,7 @@
             android:id="@+id/tv_opening_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="32dp"
             android:gravity="center|left"
             android:text="小松鼠正在努力开箱…"
             android:textColor="#ff333333"
@@ -87,7 +87,7 @@
             android:enabled="false"
             android:gravity="center"
             android:text="正在开箱…"
-            android:layout_marginTop="47dp"
+            android:layout_marginTop="30dp"
             android:textColor="#ff999999"
             android:textSize="11sp" />
         <TextView

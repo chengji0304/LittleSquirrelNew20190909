@@ -95,23 +95,58 @@ public class UserOnLoadingActivity extends BaseActivity {
         ScreenAdaptUtil.setCustomDesity(this, getApplication(), 360);
         setContentView(R.layout.activity_user_on_loading);
         ButterKnife.bind(this);
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+       // Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         prf = new PreferencesUtil(this);
         phone_num=getIntent().getStringExtra("phone_num");
         nick_name=getIntent().getStringExtra("nick_name");
         avatar_url=getIntent().getStringExtra("avatar_url");
+        prf.writePrefs(Constant.USER_MOBILE,phone_num);
+        prf.writePrefs(Constant.LOGIN_STATUS,"1");
+        prf.writePrefs(Constant.USER_IMAGE,avatar_url);
         initData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        timer = new CountDownTimer(1000 * 3, 1000) {
+
+        initTimer();
+      //  Logger.e("倒计时");
+
+
+    }
+
+    private void initData() {
+        sendTimerBoaadCastReceiver(this);
+        initBanner();
+        tvDeviceNum.setText("设备编号:"+prf.readPrefs(Constant.DEVICEID));
+
+       // tvDeviceNum.setText("设备编号:"+"3203120008");
+        btnMyRecycler.setVisibility(View.GONE);
+        tvUsermobile.setText(phone_num);
+        tvUserName.setText(nick_name);
+         Logger.e("url--->"+avatar_url);
+
+        Glide.with(this)
+                .load(avatar_url)
+                .error(R.drawable.icon_user)
+                .fallback(R.drawable.icon_user)
+                .skipMemoryCache(true)
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存
+                .into(userImage);
+
+      //  Logger.e("加载完成" );
+        if(timer!=null){
+            timer.cancel();
+        }
+        timer = new CountDownTimer(1000 * 5, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
                 int secondsRemaining = (int) (millisUntilFinished / 1000) - 1;
                 if (secondsRemaining > 0) {
+                    Logger.e("shijian--->"+secondsRemaining);
                     tvLoginMsg.setText(secondsRemaining + " 秒后自动打开箱门");
                 }
             }
@@ -119,9 +154,10 @@ public class UserOnLoadingActivity extends BaseActivity {
             @Override
             public void onFinish() {
                 //打开箱门
-                prf.writePrefs(Constant.USER_MOBILE,phone_num);
-                prf.writePrefs(Constant.LOGIN_STATUS,"1");
-                prf.writePrefs(Constant.USER_IMAGE,avatar_url);
+                // tvLoginMsg.setText("");
+                if(timer!=null){
+                    timer.cancel();
+                }
                 openActivity(UserTypeSelectActivity.class);
                 finish();
 
@@ -130,37 +166,22 @@ public class UserOnLoadingActivity extends BaseActivity {
 
     }
 
-    private void initData() {
-        sendTimerBoaadCastReceiver(this);
-        initBanner();
-        tvDeviceNum.setText("设备编号:"+prf.readPrefs(Constant.DEVICEID));
-        btnMyRecycler.setVisibility(View.GONE);
-        tvUsermobile.setText(phone_num);
-        tvUserName.setText(nick_name);
-        Glide.with(this)
-                .load(avatar_url)
-                .placeholder(R.drawable.icon_user)
-                .skipMemoryCache(true)
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存
-                .into(userImage);
-
-        initTimer();
-
-    }
-
     private void initTimer() {
-        backAndTime.setTimer(100);
+        backAndTime.setTimer(120);
         backAndTime.setBackVisableStatue(true);
         backAndTime.setVisableStatue(Boolean.valueOf(true));
         backAndTime.start();
         backAndTime.setOnBackListener(new BackAndTimerView.OnBackListener() {
             @Override
             public void onBack() {
-                clearStatus();
-//                openActivity(UserSelectActivity.class);
-//                finish();
-//                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+               // clearStatus();
+                prf.deletPrefs(Constant.USER_MOBILE);
+                prf.deletPrefs(Constant.LOGIN_STATUS);
+                prf.deletPrefs(Constant.USER_IMAGE);
+                openActivity(UserSelectActivity.class);
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
 
             }
         });
@@ -168,10 +189,14 @@ public class UserOnLoadingActivity extends BaseActivity {
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
             @Override
             public void onTimerFinish() {
-                clearStatus();
-//                openActivity(UserSelectActivity.class);
-//                finish();
-//                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+              //  clearStatus();
+                prf.deletPrefs(Constant.USER_MOBILE);
+                prf.deletPrefs(Constant.LOGIN_STATUS);
+                prf.deletPrefs(Constant.USER_IMAGE);
+                openActivity(UserSelectActivity.class);
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
 
             }
         });
@@ -240,52 +265,17 @@ public class UserOnLoadingActivity extends BaseActivity {
 
     @OnClick(R.id.btn_cancel)
     public void onViewClicked() {
-        clearStatus();
-    }
-
-    private void clearStatus() {
-        try{
-            JSONObject jsonObject=new JSONObject();
-            jsonObject.put("deviceid",prf.readPrefs(Constant.DEVICEID));
-            addSubscription(Constant.HTTP_URL + "php/v1/machine/clearlogin", jsonObject.toString(), new CallBack<String>() {
-                @Override
-                public void onStart() {
-
-                }
-
-                @Override
-                public void onCompleted() {
-
-                }
-
-                @Override
-                public void onError(ApiException e) {
-
-                }
-
-                @Override
-                public void onSuccess(String s) {
-                    Logger.e("s--->"+s);
-                    JSONObject jsonObject = com.alibaba.fastjson.JSON.parseObject(s);
-                    String stateCode = jsonObject.getString("stateCode");
-                    if(stateCode.equals("1")){
-                        prf.deletPrefs(Constant.USER_MOBILE);
-                        prf.deletPrefs(Constant.LOGIN_STATUS);
-                        openActivity(UserSelectActivity.class);
-                        finish();
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                    }else{
-                        prf.deletPrefs(Constant.USER_MOBILE);
-                        prf.deletPrefs(Constant.LOGIN_STATUS);
-                        openActivity(UserSelectActivity.class);
-                        finish();
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                    }
-
-                }
-            });
-        }catch (Exception e){
-            e.printStackTrace();
+        if(timer!=null){
+          timer.cancel();
         }
+        prf.deletPrefs(Constant.USER_MOBILE);
+        prf.deletPrefs(Constant.LOGIN_STATUS);
+        prf.deletPrefs(Constant.USER_IMAGE);
+        openActivity(UserSelectActivity.class);
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+       // clearStatus();
     }
+
+
 }

@@ -131,7 +131,8 @@ public class DeliverSuccessActivity extends BaseActivity {
         initBanner();
         Glide.with(this)
                 .load(imageUrl)
-                .placeholder(R.drawable.icon_user)
+                .error( R.drawable.icon_user)
+                .fallback( R.drawable.icon_user)
                 .skipMemoryCache(true)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存
@@ -191,7 +192,7 @@ public class DeliverSuccessActivity extends BaseActivity {
     }
 
     private void initTimer() {
-        backAndTime.setTimer(280);
+        backAndTime.setTimer(120);
         backAndTime.setVisableStatue(Boolean.valueOf(true));
         backAndTime.setBackVisableStatue(false);
         backAndTime.start();
