@@ -183,6 +183,7 @@ public class UserSelectActivity extends BaseActivity {
     private CountDownTimer timer;
     private long exitTime = 0;
     private int count = 0;
+    private String data;
     private ArrayList<PriceInfo> mWastePrice;
     // String str = "S8:0;S59:431055193939415005D5FF39-1;S60:1-0,2-0,3-0;S61:0-0,1-10,2-110,3-30,4-40,5-88,6-60;S62:0-100,1-234,2-600,3-1200,4-3600,5-600,6-100;@";
     private ArrayList<PriceInfo> priceList;
@@ -390,8 +391,10 @@ public class UserSelectActivity extends BaseActivity {
     public void getFindData(String s) {
         if (s.startsWith("S59") & s.endsWith(";")) {
             s = s.replaceAll("--", "-");
+            data=s;
             try {
-                Map<String, String> info = StringUtil.getInfo(s);
+
+                Map<String, String> info = StringUtil.getInfo(data);
                 JSONObject jsonObject = new JSONObject();
                 Iterator<Map.Entry<String, String>> entries = info.entrySet().iterator();
                 while (entries.hasNext()) {
@@ -418,6 +421,9 @@ public class UserSelectActivity extends BaseActivity {
                 capacity3 = str61[3].split("-")[1];
                 capacity4 = str61[4].split("-")[1];
                 capacity5 = str61[5].split("-")[1];
+                if (serialPort != null) {
+                    serialPortUtils.closeSerialPort();
+                }
                 getGarbagePrice();
 
             } catch (Exception e) {

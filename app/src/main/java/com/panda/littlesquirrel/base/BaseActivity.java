@@ -269,6 +269,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     if (mBuffer.length > 0) {
 
                         reciveData.append(new String(mBuffer).trim());
+                        reciveData.toString().replace("@@","@");
                         if (reciveData.toString().contains("@")) {
                             // Log.e("SerialPortUtils", "数据监听：" + reciveData);
                             String[] re = reciveData.toString().split("@");

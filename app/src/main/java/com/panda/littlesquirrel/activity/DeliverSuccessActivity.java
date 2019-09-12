@@ -290,8 +290,8 @@ public class DeliverSuccessActivity extends BaseActivity {
 
                 @Override
                 public void onError(ApiException e) {
-                    backAndTime.setTimer(backAndTime.getCurrentTime());
-                    backAndTime.start();
+
+                    backAndTime.stop();
                     prf.deletPrefs(Constant.USER_IMAGE);
                     prf.deletPrefs(Constant.LOGIN_STATUS);
                     prf.deletPrefs(Constant.USER_MOBILE);

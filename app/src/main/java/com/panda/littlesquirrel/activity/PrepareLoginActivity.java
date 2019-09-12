@@ -91,7 +91,7 @@ public class PrepareLoginActivity extends BaseActivity {
         ScreenAdaptUtil.setCustomDesity(this, getApplication(), 360);
         setContentView(R.layout.activity_prepare_login);
         ButterKnife.bind(this);
-      //  Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         prf = new PreferencesUtil(this);
 
         initData();
@@ -106,7 +106,7 @@ public class PrepareLoginActivity extends BaseActivity {
         initTimer();
         timer = new Timer();
         MyTimerTask myTimerTask = new MyTimerTask();//定时器
-        timer.schedule(myTimerTask, 1000, 5000);//每隔5秒
+        timer.schedule(myTimerTask, 1000, 6000);//每隔5秒
 
     }
 
@@ -177,6 +177,7 @@ public class PrepareLoginActivity extends BaseActivity {
                             if(dialog!=null){
                                 dialog.dismiss();
                             }
+                            backAndTime.stop();
                            // prf.writePrefs(Constant.USER_IMAGE, avatar_url.trim());
                             Intent intent = new Intent(PrepareLoginActivity.this, UserOnLoadingActivity.class);
                             intent.putExtra("phone_num", phone_num);
@@ -252,6 +253,7 @@ public class PrepareLoginActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        backAndTime.stop();
         if (timer != null) {
             timer.cancel();
         }
@@ -274,13 +276,15 @@ public class PrepareLoginActivity extends BaseActivity {
         backAndTime.setOnBackListener(new BackAndTimerView.OnBackListener() {
             @Override
             public void onBack() {
-//                if(dialog!=null){
-//                    dialog.dismiss();
-//                }
-//                if(timer!=null){
-//                    timer.cancel();
-//                }
+                if(dialog!=null){
+                    dialog.dismiss();
+                }
+                if(timer!=null){
+                    timer.cancel();
+                }
+                backAndTime.stop();
                openActivity(UserSelectActivity.class);
+                finish();
               //  clearStatus();
 //                openActivity(UserSelectActivity.class);
 //                finish();
@@ -292,13 +296,15 @@ public class PrepareLoginActivity extends BaseActivity {
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
             @Override
             public void onTimerFinish() {
-//                if (dialog != null) {
-//                    dialog.dismiss();
-//                }
-//                if(timer!=null){
-//                    timer.cancel();
-//                }
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+                if(timer!=null){
+                    timer.cancel();
+                }
+                backAndTime.stop();
                 openActivity(UserSelectActivity.class);
+                finish();
             //    clearStatus();
 //                openActivity(UserSelectActivity.class);
 //                finish();

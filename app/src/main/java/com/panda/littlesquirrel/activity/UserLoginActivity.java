@@ -217,7 +217,7 @@ public class UserLoginActivity extends BaseActivity {
                         SoundPlayUtil.play(11);
                         timer = new Timer();
                         MyTimerTask myTimerTask = new MyTimerTask();//定时器
-                        timer.schedule(myTimerTask, 1000, 5000);//每隔5秒
+                        timer.schedule(myTimerTask, 1000, 6000);//每隔5秒
                         // initTimer();
                         //machine/verification/getScanRecycler
                         //getScanRecycler();
@@ -295,8 +295,17 @@ public class UserLoginActivity extends BaseActivity {
                         prf.writePrefs(Constant.USER_IMAGE, avatar_url);
                         if (StringUtil.isEmpty(open_id)) {
                         } else if (!StringUtil.isEmpty(open_id) && StringUtil.isEmpty(phone_num)) {
+                            backAndTime.stop();
+                            if(timer!=null){
+                                timer.cancel();
+                            }
                             openActivity(PrepareLoginActivity.class);
+                            finish();
                         } else if (!StringUtil.isEmpty(open_id) && !StringUtil.isEmpty(phone_num)) {
+                            backAndTime.stop();
+                            if(timer!=null){
+                                timer.cancel();
+                            }
                             Intent intent = new Intent(UserLoginActivity.this, UserOnLoadingActivity.class);
                             intent.putExtra("phone_num", phone_num);
                             intent.putExtra("nick_name", nick_name);
@@ -339,6 +348,7 @@ public class UserLoginActivity extends BaseActivity {
                 if(timer!=null){
                     timer.cancel();
                 }
+                backAndTime.stop();
                 openActivity(UserSelectActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -351,6 +361,7 @@ public class UserLoginActivity extends BaseActivity {
                 if(timer!=null){
                     timer.cancel();
                 }
+                backAndTime.stop();
                 openActivity(UserSelectActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);

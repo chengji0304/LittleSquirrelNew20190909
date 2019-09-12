@@ -137,7 +137,7 @@ public class UserTeleActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_tele);
         ButterKnife.bind(this);
-      //  Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         //  System.loadLibrary("serial_port");
 //        serialPort = serialPortUtils.openSerialPort();
 //        setListener();
@@ -531,6 +531,7 @@ public class UserTeleActivity extends BaseActivity {
                             lDialog.setOnCloseClickListener(new UserTelLoginDialog.CloseCallBack() {
                                 @Override
                                 public void onClose() {
+                                    backAndTime.stop();
                                     lDialog.dismiss();
                                     //开箱
                                     prf.writePrefs(Constant.LOGIN_STATUS, "1");
@@ -696,6 +697,7 @@ public class UserTeleActivity extends BaseActivity {
                             if(timer!=null){
                                 timer.cancel();
                             }
+                            backAndTime.stop();
                             openActivity(PrepareLoginActivity.class);
                         } else if (!StringUtil.isEmpty(phone_num) && !StringUtil.isEmpty(phone_num)) {
                           // Logger.e("info--->"+0);
@@ -705,6 +707,7 @@ public class UserTeleActivity extends BaseActivity {
                             if(timer!=null){
                                timer.cancel();
                             }
+                            backAndTime.stop();
                             Intent intent = new Intent(UserTeleActivity.this, UserOnLoadingActivity.class);
                             intent.putExtra("phone_num", phone_num);
                             intent.putExtra("nick_name", nick_name);

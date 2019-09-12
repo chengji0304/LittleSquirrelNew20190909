@@ -95,14 +95,12 @@ public class UserOnLoadingActivity extends BaseActivity {
         ScreenAdaptUtil.setCustomDesity(this, getApplication(), 360);
         setContentView(R.layout.activity_user_on_loading);
         ButterKnife.bind(this);
-       // Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         prf = new PreferencesUtil(this);
         phone_num=getIntent().getStringExtra("phone_num");
         nick_name=getIntent().getStringExtra("nick_name");
         avatar_url=getIntent().getStringExtra("avatar_url");
-        prf.writePrefs(Constant.USER_MOBILE,phone_num);
-        prf.writePrefs(Constant.LOGIN_STATUS,"1");
-        prf.writePrefs(Constant.USER_IMAGE,avatar_url);
+
         initData();
     }
 
@@ -153,11 +151,15 @@ public class UserOnLoadingActivity extends BaseActivity {
 
             @Override
             public void onFinish() {
+                backAndTime.stop();
                 //打开箱门
                 // tvLoginMsg.setText("");
                 if(timer!=null){
                     timer.cancel();
                 }
+                prf.writePrefs(Constant.USER_MOBILE,phone_num);
+                prf.writePrefs(Constant.LOGIN_STATUS,"1");
+                prf.writePrefs(Constant.USER_IMAGE,avatar_url);
                 openActivity(UserTypeSelectActivity.class);
                 finish();
 
@@ -175,9 +177,10 @@ public class UserOnLoadingActivity extends BaseActivity {
             @Override
             public void onBack() {
                // clearStatus();
-                prf.deletPrefs(Constant.USER_MOBILE);
-                prf.deletPrefs(Constant.LOGIN_STATUS);
-                prf.deletPrefs(Constant.USER_IMAGE);
+                if(timer!=null){
+                    timer.cancel();
+                }
+                backAndTime.stop();
                 openActivity(UserSelectActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -190,9 +193,10 @@ public class UserOnLoadingActivity extends BaseActivity {
             @Override
             public void onTimerFinish() {
               //  clearStatus();
-                prf.deletPrefs(Constant.USER_MOBILE);
-                prf.deletPrefs(Constant.LOGIN_STATUS);
-                prf.deletPrefs(Constant.USER_IMAGE);
+                backAndTime.stop();
+                if(timer!=null){
+                    timer.cancel();
+                }
                 openActivity(UserSelectActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -258,6 +262,7 @@ public class UserOnLoadingActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        backAndTime.stop();
         if(timer!=null){
             timer.cancel();
         }
@@ -265,6 +270,7 @@ public class UserOnLoadingActivity extends BaseActivity {
 
     @OnClick(R.id.btn_cancel)
     public void onViewClicked() {
+        backAndTime.stop();
         if(timer!=null){
           timer.cancel();
         }
