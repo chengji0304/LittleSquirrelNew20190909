@@ -344,7 +344,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         WDTimerTask myTimerTask = new WDTimerTask();//定时器
         wdtimer.schedule(myTimerTask, 0, 8000);//每隔5秒
 //        Intent mIntent = new Intent(Constant.ACTION_WATCHDOG_KICK);//喂狗
-//        Logger.e("发送喂狗，全军出击");
+        Logger.e("发送喂狗，全军出击");
 //        sendBroadcast(mIntent);
 ////        // 触发服务的起始时间 这里是// 5秒后发送广播，只发送一次
 //

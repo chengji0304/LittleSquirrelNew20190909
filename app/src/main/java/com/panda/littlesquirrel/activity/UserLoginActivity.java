@@ -122,7 +122,7 @@ public class UserLoginActivity extends BaseActivity {
     }
 
     private void initData() {
-        sendTimerBoaadCastReceiver(this);
+        //sendTimerBoaadCastReceiver(this);
         initBanner();
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
         //tvDeviceNum.setText("设备编号:" + "3203120008");
@@ -333,6 +333,7 @@ public class UserLoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        sendTimerBoaadCastReceiver(this);
         initTimer();
 
     }

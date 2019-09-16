@@ -99,7 +99,7 @@ public class SettingLoginActivity extends BaseActivity {
     }
 
     private void initData() {
-        sendTimerBoaadCastReceiver(this);
+        //sendTimerBoaadCastReceiver(this);
         initBanner();
         btnMyRecycler.setVisibility(View.GONE);
         ForbiddenSysKeyBoardUtils.bannedSysKeyBoard(SettingLoginActivity.this, edAccount);
@@ -226,6 +226,7 @@ public class SettingLoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        sendTimerBoaadCastReceiver(this);
         initTimer();
     }
 
@@ -237,6 +238,7 @@ public class SettingLoginActivity extends BaseActivity {
         backAndTime.setOnBackListener(new BackAndTimerView.OnBackListener() {
             @Override
             public void onBack() {
+                backAndTime.stop();
                 openActivity(UserSelectActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -246,6 +248,7 @@ public class SettingLoginActivity extends BaseActivity {
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
             @Override
             public void onTimerFinish() {
+                backAndTime.stop();
                 openActivity(UserSelectActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -263,6 +266,9 @@ public class SettingLoginActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if(backAndTime!=null){
+            backAndTime.stop();
+        }
     }
 
 

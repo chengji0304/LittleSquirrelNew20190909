@@ -207,6 +207,7 @@ public class UserSelectActivity extends BaseActivity {
     private String plasticPrice;
     private String fabricPrice;
     private String imageUrl;
+
     //private final int Time = 5 * 1000;
 
     // public UpdateReceiver mUpdateReceiver;
@@ -231,7 +232,7 @@ public class UserSelectActivity extends BaseActivity {
         initPollDev();
         initData();
         setListener();
-      //  Logger.e("lati---》" + prf.readPrefs(Constant.LATI));
+
         if (!StringUtil.isEmpty(prf.readPrefs(Constant.LATI))) {
           //  Logger.e("deid---》" + prf.readPrefs(Constant.DEVICEID));
             if (!StringUtil.isEmpty(prf.readPrefs(Constant.DEVICEID))) {
@@ -500,7 +501,7 @@ public class UserSelectActivity extends BaseActivity {
     }
 
     private void initData() {
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         initBanner();//底部banner
 
 
@@ -923,7 +924,7 @@ public class UserSelectActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        sendTimerBoaadCastReceiver(this);
         if (!StringUtil.isEmpty(sound)) {
             SoundPlayUtil.play(10);
         }

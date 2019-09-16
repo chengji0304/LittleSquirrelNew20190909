@@ -118,6 +118,7 @@ public class RecylerSelectActivity extends BaseActivity {
     private String metalPrice;
     private String plasticPrice;
     private String fabricPrice;
+    private String data;
 //    public Handler mStartHandler;
 //    public byte[] mBuffer;
 //    //public  String reciveData = "";
@@ -147,7 +148,7 @@ public class RecylerSelectActivity extends BaseActivity {
     }
 
     private void initData() {
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         initBanner();
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
         btnMyRecycler.setVisibility(View.GONE);
@@ -224,6 +225,7 @@ public class RecylerSelectActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        sendTimerBoaadCastReceiver(this);
         initTimer();
     }
 
@@ -277,6 +279,7 @@ public class RecylerSelectActivity extends BaseActivity {
         backAndTime.setOnBackListener(new BackAndTimerView.OnBackListener() {
             @Override
             public void onBack() {
+                backAndTime.stop();
                 clearStatus();
 //                openActivity(UserSelectActivity.class);
 //                finish();
@@ -286,6 +289,7 @@ public class RecylerSelectActivity extends BaseActivity {
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
             @Override
             public void onTimerFinish() {
+                backAndTime.stop();
                 clearStatus();
 //                openActivity(UserSelectActivity.class);
 //                finish();
@@ -356,8 +360,9 @@ public class RecylerSelectActivity extends BaseActivity {
         if (reciveData.startsWith("S59")) {
             if (reciveData.endsWith(";")) {
                 reciveData = reciveData.replaceAll("--", "-");
+                data=reciveData;
                 try {
-                    Map<String, String> info = StringUtil.getInfo(reciveData);
+                    Map<String, String> info = StringUtil.getInfo(data);
                     org.json.JSONObject jsonObject = new org.json.JSONObject();
                     Iterator<Map.Entry<String, String>> entries = info.entrySet().iterator();
                     while (entries.hasNext()) {
@@ -493,7 +498,7 @@ public class RecylerSelectActivity extends BaseActivity {
                     public void run() {
                         serialPortUtils.sendSerialPort("androidC56:1;");
                     }
-                }, 500);
+                }, 800);
             }
 
         } else {

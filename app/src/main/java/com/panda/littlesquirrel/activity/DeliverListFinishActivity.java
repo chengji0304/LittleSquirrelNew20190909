@@ -151,7 +151,7 @@ public class DeliverListFinishActivity extends BaseActivity {
     }
 
     private void initData() {
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         initBanner();
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
         Glide.with(this)
@@ -209,6 +209,7 @@ public class DeliverListFinishActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        sendTimerBoaadCastReceiver(this);
         backAndTime.start();
         SoundPlayUtil.play(14);
     }

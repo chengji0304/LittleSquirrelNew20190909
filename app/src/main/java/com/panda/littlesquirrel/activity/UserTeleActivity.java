@@ -147,7 +147,7 @@ public class UserTeleActivity extends BaseActivity {
     }
 
     private void initData() {
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         initBanner();
         //3203120008
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
@@ -266,6 +266,7 @@ public class UserTeleActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        sendTimerBoaadCastReceiver(this);
         initTimer();
     }
 

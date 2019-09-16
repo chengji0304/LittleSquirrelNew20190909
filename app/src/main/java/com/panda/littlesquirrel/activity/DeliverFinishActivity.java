@@ -132,7 +132,7 @@ public class DeliverFinishActivity extends BaseActivity {
     }
 
     private void initData() {
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         initBanner();
         Glide.with(this)
                 .load(imageUrl)
@@ -322,6 +322,7 @@ public class DeliverFinishActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        sendTimerBoaadCastReceiver(this);
         backAndTime.start();
         SoundPlayUtil.play(14);
 

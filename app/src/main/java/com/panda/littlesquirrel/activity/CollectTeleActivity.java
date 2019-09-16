@@ -130,6 +130,7 @@ public class CollectTeleActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        sendTimerBoaadCastReceiver(this);
         initTimer();
     }
 
@@ -142,7 +143,7 @@ public class CollectTeleActivity extends BaseActivity {
     }
 
     private void initData() {
-        sendTimerBoaadCastReceiver(this);
+
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
         btnMyRecycler.setVisibility(View.GONE);
         //initBanner();

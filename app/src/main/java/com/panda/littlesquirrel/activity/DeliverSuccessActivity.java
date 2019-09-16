@@ -127,7 +127,7 @@ public class DeliverSuccessActivity extends BaseActivity {
     }
 
     private void initData() {
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         initBanner();
         Glide.with(this)
                 .load(imageUrl)
@@ -186,6 +186,7 @@ public class DeliverSuccessActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        sendTimerBoaadCastReceiver(this);
         initTimer();
         SoundPlayUtil.play(16);
         //SoundPlayUtils.StartMusic(17);

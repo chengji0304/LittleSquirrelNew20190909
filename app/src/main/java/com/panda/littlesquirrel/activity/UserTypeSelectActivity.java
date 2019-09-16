@@ -173,6 +173,9 @@ public class UserTypeSelectActivity extends BaseActivity {
                     public void run() {
                         //确认提醒
                         serialPortUtils.sendSerialPort("androidC50:0;");
+                        if (serialPort != null) {
+                            serialPortUtils.closeSerialPort();
+                        }
                         Map<String, String> info = StringUtil.getInfo(s);
                         Logger.d(info);
                         if (info.size() == 1) {
@@ -521,7 +524,7 @@ public class UserTypeSelectActivity extends BaseActivity {
     }
 
     private void initData() {
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         setListener();
         initBanner();
         Glide.with(this)
@@ -701,6 +704,7 @@ public class UserTypeSelectActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        sendTimerBoaadCastReceiver(this);
         switch (prf.readPrefs(Constant.GARBAGE_TYPE)) {
             case "饮料瓶":
                 SoundPlayUtil.play(17);

@@ -113,7 +113,7 @@ public class SlotSettingActivity extends BaseActivity {
     }
 
     private void initData() {
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         initBanner();
         // setListener();
 //        backAndTime.setVisibility(View.GONE);
@@ -420,6 +420,7 @@ public class SlotSettingActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        sendTimerBoaadCastReceiver(this);
         serialPort = serialPortUtils.openSerialPort();
     }
 

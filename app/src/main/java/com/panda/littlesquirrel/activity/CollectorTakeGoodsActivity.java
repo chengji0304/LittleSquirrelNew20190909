@@ -162,7 +162,7 @@ public class CollectorTakeGoodsActivity extends BaseActivity {
     }
 
     private void initData() {
-        sendTimerBoaadCastReceiver(this);
+
         //setListener();
         initBanner();
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
@@ -338,7 +338,7 @@ public class CollectorTakeGoodsActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        sendTimerBoaadCastReceiver(this);
         // initTimer();
 
 

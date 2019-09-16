@@ -91,7 +91,7 @@ public class DeliverListActivity extends BaseActivity {
     }
 
     private void initData() {
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         btnMyRecycler.setVisibility(View.GONE);
 
     }
@@ -99,6 +99,7 @@ public class DeliverListActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        sendTimerBoaadCastReceiver(this);
         backAndTime.start();
     }
 

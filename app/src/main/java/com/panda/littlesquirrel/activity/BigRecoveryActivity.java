@@ -54,13 +54,14 @@ public class BigRecoveryActivity extends BaseActivity {
     }
 
     private void initData() {
-        sendTimerBoaadCastReceiver(this);
+
         btnMyRecycler.setVisibility(View.GONE);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        sendTimerBoaadCastReceiver(this);
         backAndTime.start();
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
     }
