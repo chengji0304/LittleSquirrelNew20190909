@@ -127,6 +127,8 @@ public class UserTypeSelectActivity extends BaseActivity {
     private String warnstatus;//异常退出
     private String imageUrl;
 
+    private String weight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -176,7 +178,8 @@ public class UserTypeSelectActivity extends BaseActivity {
                         if (serialPort != null) {
                             serialPortUtils.closeSerialPort();
                         }
-                        Map<String, String> info = StringUtil.getInfo(s);
+                        weight=s;
+                        Map<String, String> info = StringUtil.getInfo(weight);
                         Logger.d(info);
                         if (info.size() == 1) {
                             Iterator<Map.Entry<String, String>> entries = info.entrySet().iterator();
@@ -745,7 +748,7 @@ public class UserTypeSelectActivity extends BaseActivity {
                         public void run() {
                             serialPortUtils.sendSerialPort("androidC51:" + number + ";");
                         }
-                    }, 1500);
+                    }, 1000);
                 }
 
             }

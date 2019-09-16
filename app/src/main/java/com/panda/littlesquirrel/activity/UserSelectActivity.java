@@ -221,7 +221,7 @@ public class UserSelectActivity extends BaseActivity {
         //registerMessageReceiver();
         DogWatch();
         prf = new PreferencesUtil(this);
-        Logger.e("deviceid--->" + prf.readPrefs(Constant.DEVICEID));
+       // Logger.e("deviceid--->" + prf.readPrefs(Constant.DEVICEID));
         System.loadLibrary("serial_port");
         serialPort = serialPortUtils.openSerialPort();
         mStartHandler = new Handler();
@@ -243,19 +243,13 @@ public class UserSelectActivity extends BaseActivity {
             } else {
                 getDeviceID();
 
-                // Logger.e("lati---》"+prf.readPrefs(Constant.LATI));
-                // setListener();
             }
         } else {
             initLocation();
-            //  initData();
-            // setListener();
+
         }
 
-        // initLocation();
 
-        //  initLocation();
-        // setListener();
     }
 
     private void initPollDev() {
@@ -394,7 +388,6 @@ public class UserSelectActivity extends BaseActivity {
             s = s.replaceAll("--", "-");
             data=s;
             try {
-
                 Map<String, String> info = StringUtil.getInfo(data);
                 JSONObject jsonObject = new JSONObject();
                 Iterator<Map.Entry<String, String>> entries = info.entrySet().iterator();
@@ -912,7 +905,6 @@ public class UserSelectActivity extends BaseActivity {
             @Override
             public void onTimerFinish() {
                 backAndTime.stop();
-
                 Intent intent = new Intent(UserSelectActivity.this, DeliverListFinishActivity.class);
                 startActivity(intent);
                 finish();

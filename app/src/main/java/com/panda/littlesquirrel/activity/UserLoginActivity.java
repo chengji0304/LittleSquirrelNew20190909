@@ -202,7 +202,7 @@ public class UserLoginActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(String s) {
-                    Logger.e("s--->" + s);
+                   // Logger.e("s--->" + s);
                     com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSON.parseObject(s);
                     String stateCode = jsonObject.getString("stateCode");
                     if (stateCode.equals("1")) {
@@ -283,7 +283,7 @@ public class UserLoginActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(String s) {
-                    Logger.e("s--->" + s);
+                   // Logger.e("s--->" + s);
                     com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSON.parseObject(s);
                     String stateCode = jsonObject.getString("stateCode");
                     if (stateCode.equals("1")) {
