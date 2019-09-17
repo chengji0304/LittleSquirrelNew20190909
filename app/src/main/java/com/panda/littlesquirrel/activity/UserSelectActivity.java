@@ -370,7 +370,7 @@ public class UserSelectActivity extends BaseActivity {
                             public void run() {
                                 serialPortUtils.sendSerialPort("androidC56:1;");
                             }
-                        }, 500);
+                        }, 800);
                     } else {
 
                     }
@@ -415,9 +415,9 @@ public class UserSelectActivity extends BaseActivity {
                 capacity3 = str61[3].split("-")[1];
                 capacity4 = str61[4].split("-")[1];
                 capacity5 = str61[5].split("-")[1];
-                if (serialPort != null) {
-                    serialPortUtils.closeSerialPort();
-                }
+               // if(serialPortUtils!=null){
+//                    serialPortUtils.closeSerialPort();
+//                }
                 getGarbagePrice();
 
             } catch (Exception e) {
@@ -494,7 +494,7 @@ public class UserSelectActivity extends BaseActivity {
     }
 
     private void initData() {
-       // sendTimerBoaadCastReceiver(this);
+       sendTimerBoaadCastReceiver(this);
         initBanner();//底部banner
 
 
@@ -897,7 +897,7 @@ public class UserSelectActivity extends BaseActivity {
 
 
     private void initTimer() {
-        backAndTime.setTimer(80);
+        backAndTime.setTimer(60);
         backAndTime.setVisibility(View.VISIBLE);
         backAndTime.setBackVisableStatue(false);
         backAndTime.start();
@@ -916,7 +916,7 @@ public class UserSelectActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         if (!StringUtil.isEmpty(sound)) {
             SoundPlayUtil.play(10);
         }

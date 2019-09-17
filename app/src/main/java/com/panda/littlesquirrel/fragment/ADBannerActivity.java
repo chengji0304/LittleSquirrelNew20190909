@@ -221,4 +221,10 @@ public class ADBannerActivity extends BaseActivity {
         }
         return false;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
 }

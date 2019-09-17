@@ -119,7 +119,7 @@ public class SettingActivity extends BaseActivity {
 
 
     private void initData() {
-
+        sendTimerBoaadCastReceiver(this);
         //setListener();
         initBanner();
         tvDeviceNum.setText("程序版本:"+ StringUtil.getVersionName(this));
@@ -184,7 +184,7 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+      //  sendTimerBoaadCastReceiver(this);
         initTimer();
     }
 

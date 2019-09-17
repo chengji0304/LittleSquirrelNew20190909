@@ -145,7 +145,9 @@ public class UserTypeSelectActivity extends BaseActivity {
         prfList = prf.getDataList(Constant.DELIVER_LIST);
         priceList = prf.getPriceList(Constant.PRICE_LIST);
         imageUrl = prf.readPrefs(Constant.USER_IMAGE);
+        setListener();
         initData();
+
     }
 
     @Override
@@ -175,9 +177,7 @@ public class UserTypeSelectActivity extends BaseActivity {
                     public void run() {
                         //确认提醒
                         serialPortUtils.sendSerialPort("androidC50:0;");
-                        if (serialPort != null) {
-                            serialPortUtils.closeSerialPort();
-                        }
+
                         weight=s;
                         Map<String, String> info = StringUtil.getInfo(weight);
                         Logger.d(info);
@@ -262,9 +262,11 @@ public class UserTypeSelectActivity extends BaseActivity {
                         prf.setDataList(Constant.DELIVER_LIST, prfList);
 
                         if (prfList.size() == 1) {
+                            backAndTime.stop();
                             openActivity(DeliverFinishActivity.class);
                             finish();
                         } else {
+                            backAndTime.stop();
                             openActivity(DeliverListFinishActivity.class);
                             finish();
                         }
@@ -527,8 +529,7 @@ public class UserTypeSelectActivity extends BaseActivity {
     }
 
     private void initData() {
-       // sendTimerBoaadCastReceiver(this);
-        setListener();
+        sendTimerBoaadCastReceiver(this);
         initBanner();
         Glide.with(this)
                 .load(imageUrl)
@@ -707,7 +708,7 @@ public class UserTypeSelectActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+      //  sendTimerBoaadCastReceiver(this);
         switch (prf.readPrefs(Constant.GARBAGE_TYPE)) {
             case "饮料瓶":
                 SoundPlayUtil.play(17);
@@ -748,7 +749,7 @@ public class UserTypeSelectActivity extends BaseActivity {
                         public void run() {
                             serialPortUtils.sendSerialPort("androidC51:" + number + ";");
                         }
-                    }, 1000);
+                    }, 800);
                 }
 
             }
@@ -925,7 +926,9 @@ public class UserTypeSelectActivity extends BaseActivity {
         if (handle != null) {
             handle.removeCallbacksAndMessages(null);
         }
-        serialPortUtils.closeSerialPort();
+        if (serialPort != null) {
+            serialPortUtils.closeSerialPort();
+        }
         if (reciveData != null) {
             reciveData = null;
         }

@@ -113,7 +113,7 @@ public class SlotSettingActivity extends BaseActivity {
     }
 
     private void initData() {
-       // sendTimerBoaadCastReceiver(this);
+        sendTimerBoaadCastReceiver(this);
         initBanner();
         // setListener();
 //        backAndTime.setVisibility(View.GONE);
@@ -369,7 +369,8 @@ public class SlotSettingActivity extends BaseActivity {
             @Override
             public void onConfirm() {
                 srdialog.dismiss();
-                finish();
+               // openActivity(UserSelectActivity.class);
+              //  finish();
             }
         });
         srdialog.setOnCloseClickListener(new SettingRightDialog.CloseCallBack() {
@@ -420,7 +421,7 @@ public class SlotSettingActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         serialPort = serialPortUtils.openSerialPort();
     }
 

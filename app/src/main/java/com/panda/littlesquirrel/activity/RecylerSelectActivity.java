@@ -148,7 +148,7 @@ public class RecylerSelectActivity extends BaseActivity {
     }
 
     private void initData() {
-       // sendTimerBoaadCastReceiver(this);
+       sendTimerBoaadCastReceiver(this);
         initBanner();
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
         btnMyRecycler.setVisibility(View.GONE);
@@ -225,7 +225,7 @@ public class RecylerSelectActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         initTimer();
     }
 
@@ -272,7 +272,7 @@ public class RecylerSelectActivity extends BaseActivity {
 //    }
 
     private void initTimer() {
-        backAndTime.setTimer(280);
+        backAndTime.setTimer(120);
         backAndTime.setBackVisableStatue(true);
         backAndTime.setVisableStatue(Boolean.valueOf(true));
         backAndTime.start();
@@ -325,6 +325,7 @@ public class RecylerSelectActivity extends BaseActivity {
                     JSONObject jsonObject = com.alibaba.fastjson.JSON.parseObject(s);
                     String stateCode = jsonObject.getString("stateCode");
                     if (stateCode.equals("1")) {
+                        backAndTime.stop();
                         prf.deletPrefs(Constant.COLLECTOR_MOBILE);
                         openActivity(UserSelectActivity.class);
                         finish();
@@ -498,7 +499,7 @@ public class RecylerSelectActivity extends BaseActivity {
                     public void run() {
                         serialPortUtils.sendSerialPort("androidC56:1;");
                     }
-                }, 800);
+                }, 1000);
             }
 
         } else {

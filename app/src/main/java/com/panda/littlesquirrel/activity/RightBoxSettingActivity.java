@@ -125,7 +125,7 @@ public class RightBoxSettingActivity extends BaseActivity {
     }
 
     private void initData() {
-       // sendTimerBoaadCastReceiver(this);
+        sendTimerBoaadCastReceiver(this);
         initBanner();
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
         btnMyRecycler.setVisibility(View.GONE);
@@ -290,7 +290,7 @@ public class RightBoxSettingActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+      //  sendTimerBoaadCastReceiver(this);
     }
 
     @Override

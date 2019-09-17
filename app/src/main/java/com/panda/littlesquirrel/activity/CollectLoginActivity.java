@@ -140,7 +140,7 @@ public class CollectLoginActivity extends BaseActivity {
     }
 
     private void initData() {
-
+        sendTimerBoaadCastReceiver(this);
         initBanner();
         btnMyRecycler.setVisibility(View.GONE);
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
@@ -170,6 +170,7 @@ public class CollectLoginActivity extends BaseActivity {
                 @Override
                 public void onError(ApiException e) {
                     openActivity(UserSelectActivity.class);
+                    finish();
                 }
 
                 @Override
@@ -185,6 +186,7 @@ public class CollectLoginActivity extends BaseActivity {
                         } else {
                             //故障页面
                             openActivity(UserSelectActivity.class);
+                            finish();
                         }
                     }
 
@@ -294,6 +296,7 @@ public class CollectLoginActivity extends BaseActivity {
                     com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSON.parseObject(s);
                     String stateCode = jsonObject.getString("stateCode");
                     if (stateCode.equals("1")) {
+                        backAndTime.stop();
                         com.alibaba.fastjson.JSONObject object = com.alibaba.fastjson.JSON.parseObject(jsonObject.getString("result"));
                         String mobile = object.getString("account");
                         prf.writePrefs(Constant.COLLECTOR_MOBILE, mobile);
@@ -311,7 +314,7 @@ public class CollectLoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+      //  sendTimerBoaadCastReceiver(this);
         initTimer();
 
     }

@@ -148,21 +148,21 @@ public class CollectorTakeGoodsActivity extends BaseActivity {
     @Override
     public void getFindData(final String s) {
         Logger.e("CollectorTakeGoodsActivity--->" + s);
-        handle.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (s.contains("E26")) {
-                    isClose = true;
-                }
-                reciveData = new StringBuilder();
-            }
-        }, 1000);
+//        handle.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (s.contains("E26")) {
+//                    isClose = true;
+//                }
+//                reciveData = new StringBuilder();
+//            }
+//        }, 1000);
 
 
     }
 
     private void initData() {
-
+        sendTimerBoaadCastReceiver(this);
         //setListener();
         initBanner();
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
@@ -338,85 +338,65 @@ public class CollectorTakeGoodsActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         // initTimer();
 
 
     }
 
-    private void initTimer() {
-        backAndTime.setTimer(60);
-        backAndTime.setVisableStatue(Boolean.valueOf(true));
-        backAndTime.setBackVisableStatue(false);
-        backAndTime.start();
-        backAndTime.setOnBackListener(new BackAndTimerView.OnBackListener() {
-            @Override
-            public void onBack() {
-
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-            }
-        });
-        backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
-            @Override
-            public void onTimerFinish() {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("garbage", garbageParam);
-                openActivity(CollectorTakeFinishActivity.class, bundle);
-                finish();
-            }
-        });
-    }
 
     @OnClick(R.id.btn_recycler_finished)
     public void onViewClicked() {
         // backAndTime.stop();
         // Logger.e("close--->"+isClose);
-        if (isClose == true) {
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("garbage", garbageParam);
-            openActivity(CollectorTakeFinishActivity.class, bundle);
-            finish();
-        } else {
-            errorStatusDialog.setContent("请关闭箱门");
-            errorStatusDialog.setImage(R.drawable.error);
-            errorStatusDialog.setOnConfirmClickListener(new ErrorStatusDialog.ConfirmCallBack() {
-                @Override
-                public void onConfirm() {
-                    backAndTime.stop();
-
-
-                    errorStatusDialog.dismiss();
-
-                }
-            });
-            errorStatusDialog.show(getFragmentManager(), "error_dialog");
-            timer = new CountDownTimer(1000 * 10, 1000) {
-
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    int secondsRemaining = (int) (millisUntilFinished / 1000) - 1;
-                    if (secondsRemaining > 0) {
-
-                    }
-                }
-
-                @Override
-                public void onFinish() {
-
-                    if (errorStatusDialog != null) {
-                        errorStatusDialog.dismiss();
-                    }
-
-                    timer.cancel();
-                    backAndTime.setTimer(backAndTime.getCurrentTime());
-                    backAndTime.start();
-
-                }
-            }.start();
-        }
-
-
+//        if (isClose == true) {
+//            Bundle bundle = new Bundle();
+//            bundle.putParcelable("garbage", garbageParam);
+//            openActivity(CollectorTakeFinishActivity.class, bundle);
+//            finish();
+//        } else {
+//            errorStatusDialog.setContent("请关闭箱门");
+//            errorStatusDialog.setImage(R.drawable.error);
+//            errorStatusDialog.setOnConfirmClickListener(new ErrorStatusDialog.ConfirmCallBack() {
+//                @Override
+//                public void onConfirm() {
+//                    backAndTime.stop();
+//
+//
+//                    errorStatusDialog.dismiss();
+//
+//                }
+//            });
+//            errorStatusDialog.show(getFragmentManager(), "error_dialog");
+//            timer = new CountDownTimer(1000 * 10, 1000) {
+//
+//                @Override
+//                public void onTick(long millisUntilFinished) {
+//                    int secondsRemaining = (int) (millisUntilFinished / 1000) - 1;
+//                    if (secondsRemaining > 0) {
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onFinish() {
+//
+//                    if (errorStatusDialog != null) {
+//                        errorStatusDialog.dismiss();
+//                    }
+//
+//                    timer.cancel();
+//                    backAndTime.setTimer(backAndTime.getCurrentTime());
+//                    backAndTime.start();
+//
+//                }
+//            }.start();
+//        }
+        backAndTime.stop();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("garbage", garbageParam);
+        openActivity(CollectorTakeFinishActivity.class, bundle);
+        finish();
     }
 
     @Override

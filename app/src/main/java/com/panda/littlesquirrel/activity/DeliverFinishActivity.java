@@ -132,7 +132,7 @@ public class DeliverFinishActivity extends BaseActivity {
     }
 
     private void initData() {
-       // sendTimerBoaadCastReceiver(this);
+        sendTimerBoaadCastReceiver(this);
         initBanner();
         Glide.with(this)
                 .load(imageUrl)
@@ -322,20 +322,20 @@ public class DeliverFinishActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         backAndTime.start();
         SoundPlayUtil.play(14);
 
     }
 
     private void initTimer() {
-        backAndTime.setTimer(120);
+        backAndTime.setTimer(60);
         backAndTime.setVisableStatue(Boolean.valueOf(true));
         backAndTime.setBackVisableStatue(false);
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
             @Override
             public void onTimerFinish() {
-                backAndTime.stop();
+              //  backAndTime.stop();
                 btnOver.setEnabled(false);
                 saveRecord();
 
@@ -347,9 +347,7 @@ public class DeliverFinishActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (backAndTime != null) {
-            backAndTime.stop();
-        }
+        backAndTime.stop();
         if (mStartHandler != null) {
             mStartHandler.removeCallbacksAndMessages(null);
         }
@@ -575,6 +573,7 @@ public class DeliverFinishActivity extends BaseActivity {
 
                 break;
             case R.id.btn_again:
+                backAndTime.stop();
 
                 openActivity(UserSelectActivity.class);
 //                Intent again = new Intent(DeliverFinishActivity.this, UserSelectActivity.class);

@@ -76,7 +76,6 @@
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
@@ -90,70 +89,61 @@
         <activity
             android:name=".activity.HomeActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.CollectLoginActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.CollectTeleActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.RecylerSelectActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.CollectorPayActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.CollectorTakeGoodsActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.CollectorTakeFinishActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
+            android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.BigRecoveryActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.QuickGuideActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.UserLoginActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">
@@ -162,11 +152,9 @@
         <activity
             android:name=".activity.UserTeleActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">
-
         </activity>
         <activity
             android:name=".activity.UserSelectActivity"
@@ -183,35 +171,31 @@
         <activity
             android:name=".activity.UserTypeSelectActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.DeliverSuccessActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.DeliverFinishActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.DeliverListFinishActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.SettingActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
+            android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">
@@ -219,33 +203,29 @@
         <activity
             android:name=".activity.SlotSettingActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.SettingLoginActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
+            android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.RightBoxSettingActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".activity.LeftBoxSettingActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan"></activity>
 
         <activity android:name=".activity.UserOnLoadingActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">
@@ -253,7 +233,6 @@
             </activity>
         <activity android:name=".activity.PrepareLoginActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">

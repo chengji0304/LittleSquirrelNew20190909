@@ -130,7 +130,7 @@ public class CollectTeleActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         initTimer();
     }
 
@@ -143,7 +143,7 @@ public class CollectTeleActivity extends BaseActivity {
     }
 
     private void initData() {
-
+        sendTimerBoaadCastReceiver(this);
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
         btnMyRecycler.setVisibility(View.GONE);
         //initBanner();
@@ -314,6 +314,7 @@ public class CollectTeleActivity extends BaseActivity {
                     com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSON.parseObject(s);
                     String stateCode = jsonObject.getString("stateCode");
                     if(stateCode.equals("1")){
+                        backAndTime.stop();
                         prf.writePrefs(Constant.COLLECTOR_MOBILE,edAccount.getText().toString().trim().replaceAll(" ",""));
                         openActivity(RecylerSelectActivity.class);
 
@@ -421,6 +422,7 @@ public class CollectTeleActivity extends BaseActivity {
         backAndTime.setOnBackListener(new BackAndTimerView.OnBackListener() {
             @Override
             public void onBack() {
+                backAndTime.stop();
                 openActivity(UserSelectActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -430,6 +432,7 @@ public class CollectTeleActivity extends BaseActivity {
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
             @Override
             public void onTimerFinish() {
+                backAndTime.stop();
                 openActivity(UserSelectActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);

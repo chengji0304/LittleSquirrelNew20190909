@@ -99,7 +99,7 @@ public class PrepareLoginActivity extends BaseActivity {
     }
 
     private void initData() {
-
+        sendTimerBoaadCastReceiver(this);
         initBanner();
         btnMyRecycler.setVisibility(View.GONE);
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
@@ -265,7 +265,7 @@ public class PrepareLoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+
 
     }
 

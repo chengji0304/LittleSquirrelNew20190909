@@ -147,7 +147,7 @@ public class UserTeleActivity extends BaseActivity {
     }
 
     private void initData() {
-       // sendTimerBoaadCastReceiver(this);
+        sendTimerBoaadCastReceiver(this);
         initBanner();
         //3203120008
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
@@ -266,7 +266,7 @@ public class UserTeleActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         initTimer();
     }
 
@@ -461,6 +461,7 @@ public class UserTeleActivity extends BaseActivity {
                         } else {
                             //故障页面
                             openActivity(UserSelectActivity.class);
+                            finish();
                         }
                     }
 
@@ -550,11 +551,14 @@ public class UserTeleActivity extends BaseActivity {
 
                         } else {
                             //故障
+                            backAndTime.stop();
                             openActivity(UserSelectActivity.class);
+                            finish();
                         }
                     } else {
                         //故障
                         openActivity(UserSelectActivity.class);
+                        finish();
 
                     }
 
@@ -700,6 +704,7 @@ public class UserTeleActivity extends BaseActivity {
                             }
                             backAndTime.stop();
                             openActivity(PrepareLoginActivity.class);
+                            finish();
                         } else if (!StringUtil.isEmpty(phone_num) && !StringUtil.isEmpty(phone_num)) {
                           // Logger.e("info--->"+0);
                           if(rDialog!=null){

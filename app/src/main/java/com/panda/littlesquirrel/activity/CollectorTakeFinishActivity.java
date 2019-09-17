@@ -149,7 +149,7 @@ public class CollectorTakeFinishActivity extends BaseActivity {
     }
 
     private void initData() {
-
+        sendTimerBoaadCastReceiver(this);
         //setListener();
         initBanner();
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
@@ -254,33 +254,11 @@ public class CollectorTakeFinishActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         //initTimer();
     }
 
-    private void initTimer() {
-        backAndTime.setTimer(280);
-        backAndTime.setVisableStatue(Boolean.valueOf(true));
-        backAndTime.setBackVisableStatue(false);
-        backAndTime.start();
-        backAndTime.setOnBackListener(new BackAndTimerView.OnBackListener() {
-            @Override
-            public void onBack() {
-                prf.clearPrefs();
-                clearStatus();
 
-            }
-        });
-        backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
-            @Override
-            public void onTimerFinish() {
-                prf.deletPrefs(Constant.LOGIN_STATUS);
-//                openActivity(UserSelectActivity.class);
-//                finish();
-                clearStatus();
-            }
-        });
-    }
 
     private void clearStatus() {
         try {
@@ -309,6 +287,7 @@ public class CollectorTakeFinishActivity extends BaseActivity {
                     com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSON.parseObject(s);
                     String stateCode = jsonObject.getString("stateCode");
                     if (stateCode.equals("1")) {
+                     //   backAndTime.stop();
                         prf.deletPrefs(Constant.COLLECTOR_MOBILE);
                         openActivity(UserSelectActivity.class);
                         finish();

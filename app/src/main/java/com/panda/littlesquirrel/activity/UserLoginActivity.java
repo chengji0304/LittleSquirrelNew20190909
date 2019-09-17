@@ -117,17 +117,17 @@ public class UserLoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         prf = new PreferencesUtil(this);
-        clearStatus();
         initData();
     }
 
     private void initData() {
-        //sendTimerBoaadCastReceiver(this);
+        sendTimerBoaadCastReceiver(this);
         initBanner();
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
         //tvDeviceNum.setText("设备编号:" + "3203120008");
         btnMyRecycler.setVisibility(View.GONE);
         //  getUserOrCode();
+        clearStatus();
 
 
     }
@@ -223,7 +223,7 @@ public class UserLoginActivity extends BaseActivity {
                         //getScanRecycler();
                     } else {
                         openActivity(UserSelectActivity.class);
-                       // finish();
+                       finish();
                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     }
 
@@ -333,7 +333,7 @@ public class UserLoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+        //sendTimerBoaadCastReceiver(this);
         initTimer();
 
     }

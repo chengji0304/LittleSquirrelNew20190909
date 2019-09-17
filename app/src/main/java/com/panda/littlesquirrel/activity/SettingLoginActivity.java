@@ -99,7 +99,7 @@ public class SettingLoginActivity extends BaseActivity {
     }
 
     private void initData() {
-        //sendTimerBoaadCastReceiver(this);
+        sendTimerBoaadCastReceiver(this);
         initBanner();
         btnMyRecycler.setVisibility(View.GONE);
         ForbiddenSysKeyBoardUtils.bannedSysKeyBoard(SettingLoginActivity.this, edAccount);
@@ -226,12 +226,12 @@ public class SettingLoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         initTimer();
     }
 
     private void initTimer() {
-        backAndTime.setTimer(280);
+        backAndTime.setTimer(60);
         backAndTime.setBackVisableStatue(true);
         backAndTime.setVisableStatue(Boolean.valueOf(true));
         backAndTime.start();

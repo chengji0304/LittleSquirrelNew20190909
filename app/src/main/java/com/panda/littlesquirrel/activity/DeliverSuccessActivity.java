@@ -127,7 +127,7 @@ public class DeliverSuccessActivity extends BaseActivity {
     }
 
     private void initData() {
-       // sendTimerBoaadCastReceiver(this);
+        sendTimerBoaadCastReceiver(this);
         initBanner();
         Glide.with(this)
                 .load(imageUrl)
@@ -186,14 +186,14 @@ public class DeliverSuccessActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+       // sendTimerBoaadCastReceiver(this);
         initTimer();
         SoundPlayUtil.play(16);
         //SoundPlayUtils.StartMusic(17);
     }
 
     private void initTimer() {
-        backAndTime.setTimer(120);
+        backAndTime.setTimer(30);
         backAndTime.setVisableStatue(Boolean.valueOf(true));
         backAndTime.setBackVisableStatue(false);
         backAndTime.start();
@@ -201,7 +201,7 @@ public class DeliverSuccessActivity extends BaseActivity {
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
             @Override
             public void onTimerFinish() {
-                backAndTime.stop();
+               // backAndTime.stop();
                 btnOver.setEnabled(false);
                 clearStatus();
 
@@ -213,8 +213,8 @@ public class DeliverSuccessActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_over:
-                backAndTime.stop();
-                btnOver.setEnabled(false);
+                //backAndTime.stop();
+              //  btnOver.setEnabled(false);
                 clearStatus();
 
 
@@ -275,6 +275,7 @@ public class DeliverSuccessActivity extends BaseActivity {
 
     private void clearStatus() {
         try {
+            backAndTime.stop();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("deviceid", prf.readPrefs(Constant.DEVICEID));
             //  jsonObject.put("teleNum", prf.readPrefs(Constant.USER_MOBILE));
@@ -292,7 +293,7 @@ public class DeliverSuccessActivity extends BaseActivity {
                 @Override
                 public void onError(ApiException e) {
 
-                    backAndTime.stop();
+                  //  backAndTime.stop();
                     prf.deletPrefs(Constant.USER_IMAGE);
                     prf.deletPrefs(Constant.LOGIN_STATUS);
                     prf.deletPrefs(Constant.USER_MOBILE);
@@ -310,6 +311,7 @@ public class DeliverSuccessActivity extends BaseActivity {
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(s);
                     String stateCode = jsonObject.getString("stateCode");
                     if (stateCode.equals("1")) {
+                     //   backAndTime.stop();
                         prf.deletPrefs(Constant.USER_IMAGE);
                         prf.deletPrefs(Constant.LOGIN_STATUS);
                         prf.deletPrefs(Constant.USER_MOBILE);
@@ -320,6 +322,7 @@ public class DeliverSuccessActivity extends BaseActivity {
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                     } else {
+                      //  backAndTime.stop();
                         prf.deletPrefs(Constant.USER_IMAGE);
                         prf.deletPrefs(Constant.LOGIN_STATUS);
                         prf.deletPrefs(Constant.USER_MOBILE);

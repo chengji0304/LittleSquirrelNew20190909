@@ -71,7 +71,7 @@ public class MyApplication extends Application {
                 //.logStrategy(customLog) //（可选）更改要打印的日志策略。 默认LogCat
                 .tag("squirrel")   //（可选）每个日志的全局标记。 默认PRETTY_LOGGER
                 .build();
-        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
+       Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
 //        Logger.addLogAdapter(new AndroidLogAdapter() {
 //            @Override public boolean isLoggable(int priority, String tag) {
 //                return com.orhanobut.logger.BuildConfig.DEBUG;

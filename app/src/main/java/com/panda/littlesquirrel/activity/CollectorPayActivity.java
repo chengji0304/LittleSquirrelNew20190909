@@ -131,7 +131,7 @@ public class CollectorPayActivity extends BaseActivity {
     }
 
     private void initData() {
-
+        sendTimerBoaadCastReceiver(this);
         initBanner();
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
         getBlance();
@@ -239,7 +239,7 @@ public class CollectorPayActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+     //   sendTimerBoaadCastReceiver(this);
         initTimer();
     }
 
@@ -251,6 +251,7 @@ public class CollectorPayActivity extends BaseActivity {
         backAndTime.setOnBackListener(new BackAndTimerView.OnBackListener() {
             @Override
             public void onBack() {
+                backAndTime.stop();
                 openActivity(RecylerSelectActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -261,6 +262,7 @@ public class CollectorPayActivity extends BaseActivity {
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
             @Override
             public void onTimerFinish() {
+                backAndTime.stop();
                 openActivity(RecylerSelectActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -379,6 +381,7 @@ public class CollectorPayActivity extends BaseActivity {
                     backAndTime.start();
                     btnOk.setText("确认支付");
                     btnOk.setEnabled(true);
+
                 }
 
                 @Override
@@ -387,6 +390,7 @@ public class CollectorPayActivity extends BaseActivity {
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(s);
                     String stateCode = jsonObject.getString("stateCode");
                     if (stateCode.equals("1")) {
+                        backAndTime.stop();
                         Bundle bundle = new Bundle();
                         bundle.putParcelable("garbage", garbageParam);
                         openActivity(CollectorTakeGoodsActivity.class, bundle);

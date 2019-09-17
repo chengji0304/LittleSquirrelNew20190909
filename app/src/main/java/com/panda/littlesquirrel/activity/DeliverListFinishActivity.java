@@ -136,13 +136,13 @@ public class DeliverListFinishActivity extends BaseActivity {
     }
 
     private void initTimer() {
-        backAndTime.setTimer(120);
+        backAndTime.setTimer(60);
         backAndTime.setVisableStatue(Boolean.valueOf(true));
         backAndTime.setBackVisableStatue(false);
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
             @Override
             public void onTimerFinish() {
-                backAndTime.stop();
+               // backAndTime.stop();
                 btnOver.setEnabled(false);
                 saveRecord();
 
@@ -151,7 +151,7 @@ public class DeliverListFinishActivity extends BaseActivity {
     }
 
     private void initData() {
-       // sendTimerBoaadCastReceiver(this);
+        sendTimerBoaadCastReceiver(this);
         initBanner();
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
         Glide.with(this)
@@ -209,7 +209,7 @@ public class DeliverListFinishActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendTimerBoaadCastReceiver(this);
+        //sendTimerBoaadCastReceiver(this);
         backAndTime.start();
         SoundPlayUtil.play(14);
     }
@@ -239,9 +239,9 @@ public class DeliverListFinishActivity extends BaseActivity {
                 // btnOver.setEnabled(false);
                 if (prfList.size() > 0) {
                     btnOver.setEnabled(false);
-                    backAndTime.stop();
                     saveRecord();
                 } else {
+                    backAndTime.stop();
                     openActivity(DeliverSuccessActivity.class);
                     finish();
                 }
@@ -285,6 +285,7 @@ public class DeliverListFinishActivity extends BaseActivity {
 
     public void saveRecord() {
         try {
+            backAndTime.stop();
             String serialNum = StringUtil.getSerialNumber();
             SaveDeliveryRecord record = new SaveDeliveryRecord();
             record.setDeviceID(prf.readPrefs(Constant.DEVICEID));
@@ -391,7 +392,7 @@ public class DeliverListFinishActivity extends BaseActivity {
 
                 @Override
                 public void onError(ApiException e) {
-                    Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessActivity.class);
+                   // Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessActivity.class);
 //                    intent.putExtra("money", totalMoney);
 //                    intent.putExtra("jifen", totalJifen);
 //                    startActivity(intent);
