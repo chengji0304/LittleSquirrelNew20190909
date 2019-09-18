@@ -106,6 +106,8 @@ public class UserTypeSelectActivity extends BaseActivity {
     RecyclerView ryGrabageType;
     @Bind(R.id.user_image)
     CircleImageView userImage;
+    @Bind(R.id.tv_redmsg)
+    TextView tvRedmsg;
 
     //   private SelcetInfo info;
     private ArrayList<Garbage> mlist;
@@ -134,12 +136,12 @@ public class UserTypeSelectActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_type_select);
         ButterKnife.bind(this);
-       // Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         System.loadLibrary("serial_port");
         serialPort = serialPortUtils.openSerialPort();
         mStartHandler = new Handler();
         reciveData = new StringBuilder();
-       // handle = new Handler();
+        // handle = new Handler();
         prf = new PreferencesUtil(this);
         saveList = prf.getDataList(Constant.SAVE_LIST);
         prfList = prf.getDataList(Constant.DELIVER_LIST);
@@ -178,7 +180,7 @@ public class UserTypeSelectActivity extends BaseActivity {
                         //确认提醒
                         serialPortUtils.sendSerialPort("androidC50:0;");
 
-                        weight=s;
+                        weight = s;
                         Map<String, String> info = StringUtil.getInfo(weight);
                         Logger.d(info);
                         if (info.size() == 1) {
@@ -498,6 +500,8 @@ public class UserTypeSelectActivity extends BaseActivity {
             jsonObjcet.put("deviceId", prf.readPrefs(Constant.DEVICEID));
             jsonObjcet.put("openBoxStatus", 1);
             jsonObjcet.put("phoneNum", prf.readPrefs(Constant.USER_MOBILE));
+            jsonObjcet.put("category", category);
+            jsonObjcet.put("canNum", number);
             addSubscription(Constant.HTTP_URL + "machine/delivery/openBoxNotify", jsonObjcet.toString(), new CallBack<String>() {
                 @Override
                 public void onStart() {
@@ -533,8 +537,8 @@ public class UserTypeSelectActivity extends BaseActivity {
         initBanner();
         Glide.with(this)
                 .load(imageUrl)
-                .error( R.drawable.icon_user)
-                .fallback( R.drawable.icon_user)
+                .error(R.drawable.icon_user)
+                .fallback(R.drawable.icon_user)
                 .skipMemoryCache(true)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存
@@ -559,6 +563,7 @@ public class UserTypeSelectActivity extends BaseActivity {
                 mlist.add(new Garbage(R.drawable.bottle_coco, "可乐瓶"));
                 mlist.add(new Garbage(R.drawable.bottle_milk, "牛奶瓶"));
                 mlist.add(new Garbage(R.drawable.bottle_can, "果汁瓶"));
+
                 btnOpen.setText("请开始投递");
                 tvOpeningTip.setText("请在屏幕右侧投递口闪烁灯光时投递");
                 tv60g.setVisibility(View.GONE);
@@ -577,6 +582,7 @@ public class UserTypeSelectActivity extends BaseActivity {
                 mlist.add(new Garbage(R.drawable.paper_bag, "包装纸袋"));
                 mlist.add(new Garbage(R.drawable.paper_news, "废报纸"));
                 mlist.add(new Garbage(R.drawable.paper_card, "明信片"));
+                tvRedmsg.setVisibility(View.VISIBLE);
                 tvOpeningTip.setText("纸类回收箱门已打开，请投递");
                 break;
             case "纸类2箱":
@@ -593,6 +599,7 @@ public class UserTypeSelectActivity extends BaseActivity {
                 mlist.add(new Garbage(R.drawable.paper_bag, "包装纸袋"));
                 mlist.add(new Garbage(R.drawable.paper_news, "废报纸"));
                 mlist.add(new Garbage(R.drawable.paper_card, "明信片"));
+                tvRedmsg.setVisibility(View.VISIBLE);
                 tvOpeningTip.setText("纸类回收箱门已打开，请投递");
                 break;
             case "书籍":
@@ -708,7 +715,7 @@ public class UserTypeSelectActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-      //  sendTimerBoaadCastReceiver(this);
+        //  sendTimerBoaadCastReceiver(this);
         switch (prf.readPrefs(Constant.GARBAGE_TYPE)) {
             case "饮料瓶":
                 SoundPlayUtil.play(17);

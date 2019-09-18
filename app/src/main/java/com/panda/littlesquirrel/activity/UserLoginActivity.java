@@ -217,7 +217,7 @@ public class UserLoginActivity extends BaseActivity {
                         SoundPlayUtil.play(11);
                         timer = new Timer();
                         MyTimerTask myTimerTask = new MyTimerTask();//定时器
-                        timer.schedule(myTimerTask, 1000, 6000);//每隔5秒
+                        timer.schedule(myTimerTask, 1000, 5000);//每隔5秒
                         // initTimer();
                         //machine/verification/getScanRecycler
                         //getScanRecycler();

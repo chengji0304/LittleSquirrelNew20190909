@@ -106,7 +106,7 @@ public class PrepareLoginActivity extends BaseActivity {
         initTimer();
         timer = new Timer();
         MyTimerTask myTimerTask = new MyTimerTask();//定时器
-        timer.schedule(myTimerTask, 1000, 6000);//每隔5秒
+        timer.schedule(myTimerTask, 1000, 5000);//每隔5秒
 
     }
 
@@ -153,7 +153,7 @@ public class PrepareLoginActivity extends BaseActivity {
 
                 @Override
                 public void onError(ApiException e) {
-                    openActivity(UserSelectActivity.class);
+                   // openActivity(UserSelectActivity.class);
                 }
 
                 @Override

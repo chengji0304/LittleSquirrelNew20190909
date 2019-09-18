@@ -899,8 +899,20 @@ public class UserSelectActivity extends BaseActivity {
     private void initTimer() {
         backAndTime.setTimer(60);
         backAndTime.setVisibility(View.VISIBLE);
-        backAndTime.setBackVisableStatue(false);
+        backAndTime.setBackVisableStatue(true);
         backAndTime.start();
+        backAndTime.setOnBackListener(new BackAndTimerView.OnBackListener() {
+            @Override
+            public void onBack() {
+                backAndTime.stop();
+                Intent intent = new Intent(UserSelectActivity.this, DeliverListFinishActivity.class);
+                startActivity(intent);
+                finish();
+               // clearStatus();
+//                openActivity(UserSelectActivity.class);
+//                finish();
+            }
+        });
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
             @Override
             public void onTimerFinish() {

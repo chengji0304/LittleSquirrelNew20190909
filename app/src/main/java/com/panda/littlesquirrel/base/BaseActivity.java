@@ -65,7 +65,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState, persistentState);
         //  hideNavigationBar();
         ScreenAdaptUtil.setCustomDesity(this, getApplication(), 360);
-
         reciveData = new StringBuilder();
         setContentView(R.layout.activity_big_recovery);
         //setListener();

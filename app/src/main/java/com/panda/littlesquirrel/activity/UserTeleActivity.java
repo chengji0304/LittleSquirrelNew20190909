@@ -491,6 +491,10 @@ public class UserTeleActivity extends BaseActivity {
 
                 @Override
                 public void onError(ApiException e) {
+                    backAndTime.stop();
+                    //故障
+                    openActivity(UserSelectActivity.class);
+                    finish();
                     //openActivity(UserSelectActivity.class);
 
                 }
@@ -518,8 +522,6 @@ public class UserTeleActivity extends BaseActivity {
                                 rDialog.dismiss();
                             }
                             lDialog = new UserTelLoginDialog();
-                            Logger.e("mobile---》" + phone_num);
-                            Logger.e("nick_name---》" + nick_name);
                             lDialog.setContent(phone_num);
                             lDialog.setImage(object.getString("avatar_url"));
                             lDialog.setUserName(nick_name);
@@ -556,6 +558,7 @@ public class UserTeleActivity extends BaseActivity {
                             finish();
                         }
                     } else {
+                        backAndTime.stop();
                         //故障
                         openActivity(UserSelectActivity.class);
                         finish();

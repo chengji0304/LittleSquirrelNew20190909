@@ -79,6 +79,16 @@
 
             </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_redmsg"
+            android:textSize="10sp"
+            android:textColor="#FF6D6D"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="*纸箱请压扁后投递，否则可能计重不准，降低环保金发放金额"/>
         <Button
             android:id="@+id/btn_open"
             android:layout_width="160dp"
@@ -87,14 +97,14 @@
             android:enabled="false"
             android:gravity="center"
             android:text="正在开箱…"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="21dp"
             android:textColor="#ff999999"
             android:textSize="11sp" />
         <TextView
             android:id="@id/tv_60g"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:gravity="center|left"
             android:text="投递60克以上才会有环保金噢"
             android:textColor="#ff999999"
