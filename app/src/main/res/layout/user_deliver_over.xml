@@ -5,12 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/home_page_mid_bg">
     <LinearLayout
+        android:visibility="visible"
         android:id="@+id/ll_none"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <de.hdodenhof.circleimageview.CircleImageView
+            android:visibility="gone"
             android:id="@+id/user_image"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -46,7 +48,6 @@
                 android:textColor="#ff333333"
                 android:textSize="11sp" />
         </LinearLayout>
-
         <LinearLayout
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -54,8 +55,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone">
-
-
             <TextView
                 android:id="@+id/tv_shouyi"
                 android:layout_width="wrap_content"
@@ -70,7 +69,6 @@
                android:layout_height="wrap_content"
                android:orientation="horizontal">
                <TextView
-
                    android:visibility="gone"
                    android:id="@+id/tv_jifen_value"
                    android:layout_width="wrap_content"
@@ -88,8 +86,6 @@
                    android:textColor="#ff258cef"
                    android:textSize="20sp" />
            </LinearLayout>
-
-
             <TextView
                 android:id="@+id/tv_describe_tip"
                 android:layout_marginTop="40px"
@@ -109,7 +105,6 @@
             android:text="打开微信扫一扫进入小程序查看"
             android:textColor="#ff999999"
             android:textSize="9sp" />
-
         <ImageView
             android:layout_marginTop="7dp"
             android:id="@id/img_small_routine"
@@ -126,19 +121,16 @@
                 android:id="@+id/btn_over"
                 android:layout_width="133.0dip"
                 android:layout_height="33.0dip"
-
                 android:background="@drawable/user_btn_shape_133x33dp_pink"
                 android:gravity="center"
                 android:text="回到首页"
                 android:textColor="#ffffffff"
                 android:textSize="11sp" />
-
             <Button
                 android:layout_marginLeft="17dp"
                 android:id="@+id/btn_look"
                 android:layout_width="133.0dip"
                 android:layout_height="33.0dip"
-
                 android:background="@drawable/user_btn_shape_133x33dp_green"
                 android:gravity="center"
                 android:text="查看废品去向"
@@ -154,5 +146,4 @@
             android:textColor="#ff999999"
             android:textSize="9sp" />
     </LinearLayout>
-
 </RelativeLayout>

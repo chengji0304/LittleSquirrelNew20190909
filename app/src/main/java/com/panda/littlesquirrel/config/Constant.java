@@ -22,19 +22,20 @@ public class Constant {
     /**
      * 网络接口基地址
      */
-    public static final String SHOOTSCREEN= Environment.getExternalStorageDirectory().getPath() + "/littlesquirrel/pic";
+    public static final String SHOOTSCREEN = Environment.getExternalStorageDirectory().getPath() + "/littlesquirrel/pic";
     public static final String ACTION_WATCHDOG_KICK = "android.intent.action.WATCHDOG_KICK";
     public static final String ACTION_WATCHDOG_INIT = "android.intent.action.WATCHDOG_INIT";
     public static final String ACTION_WATCHDOG_STOP = "android.intent.action.WATCHDOG_STOP";
-    //public static final String HTTP_URL = "https://testapi.squirrelf.com:81/";
+   // public static final String HTTP_URL = "https://testapi.squirrelf.com:81/";
     public static final String HTTP_URL = "https://api.squirrelf.com/";
     public static final String HTTP_URL1 = "https://www.squirrelf.com/";
     public static final String COLLECT_QRCODE = "collect_code";
     public static final String DEVICEID = "deviceID";
     public static final String USER_QRCODE = "user_code";
     public static final String SIGNKEY = "signKey";
-    public static final String LATI ="lati" ;
+    public static final String LATI = "lati";
     public static final String LONGA = "longga";
-    public static final String USER_IMAGE ="image" ;
+    public static final String USER_IMAGE = "image";
     public static final String IMAGE_CODE = "qrcode";
+    public static final String USER_NAME ="name" ;
 }

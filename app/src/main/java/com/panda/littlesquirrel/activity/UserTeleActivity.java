@@ -271,7 +271,7 @@ public class UserTeleActivity extends BaseActivity {
     }
 
     private void initTimer() {
-        backAndTime.setTimer(120);
+        backAndTime.setTimer(160);
         backAndTime.setBackVisableStatue(true);
         backAndTime.setVisableStatue(Boolean.valueOf(true));
         backAndTime.start();
@@ -459,7 +459,7 @@ public class UserTeleActivity extends BaseActivity {
                             // 手机号登录
                             mobileLogin();
                         } else {
-                            //故障页面
+                            //故障页面  清三次 如果不行 就返回首页
                             openActivity(UserSelectActivity.class);
                             finish();
                         }
@@ -508,7 +508,7 @@ public class UserTeleActivity extends BaseActivity {
                         final com.alibaba.fastjson.JSONObject object = com.alibaba.fastjson.JSON.parseObject(jsonObject.getString("result"));
                         String status = object.getString("status");
                         final String phone_num = object.getString("phone_num");
-                        String nick_name = object.getString("nick_name");
+                        final String nick_name = object.getString("nick_name");
                         final String avatar_url = object.getString("avatar_url");
                         if (status.equals("1")) {
                             if (timer != null) {
@@ -541,6 +541,7 @@ public class UserTeleActivity extends BaseActivity {
                                     prf.writePrefs(Constant.LOGIN_STATUS, "1");
                                     prf.writePrefs(Constant.USER_MOBILE, phone_num);
                                     prf.writePrefs(Constant.USER_IMAGE, avatar_url);
+                                    prf.writePrefs(Constant.USER_NAME,nick_name);
                                     openActivity(UserTypeSelectActivity.class);
                                     finish();
 
@@ -552,10 +553,12 @@ public class UserTeleActivity extends BaseActivity {
                             getQrCode();
 
                         } else {
-                            //故障
+                           // 故障
                             backAndTime.stop();
                             openActivity(UserSelectActivity.class);
                             finish();
+
+                           // clearStatus();
                         }
                     } else {
                         backAndTime.stop();
@@ -613,7 +616,7 @@ public class UserTeleActivity extends BaseActivity {
                         rDialog.setImage(bitmap);
                         timer = new Timer();
                         MyTimerTask myTimerTask = new MyTimerTask();//定时器
-                        timer.schedule(myTimerTask, 1000, 5000);//每隔5秒
+                        timer.schedule(myTimerTask, 1000, 4000);//每隔5秒
 
                         rDialog.setOnCloseClickListener(new UserTelRegistDialog.CloseCallBack() {
                             @Override

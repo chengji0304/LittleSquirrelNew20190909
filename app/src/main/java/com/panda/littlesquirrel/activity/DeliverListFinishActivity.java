@@ -406,19 +406,38 @@ public class DeliverListFinishActivity extends BaseActivity {
                     JSONObject jsonObject = JSON.parseObject(s);
                     String stateCode = jsonObject.getString("stateCode");
                     if (stateCode.equals("1")) {
-                        Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessActivity.class);
-                        intent.putExtra("money", totalMoney);
-                        intent.putExtra("jifen", totalJifen);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        finish();
+                        if(StringUtil.isEmpty(totalMoney)){
+                            Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessActivity.class);
+                            intent.putExtra("money", totalMoney);
+                            intent.putExtra("jifen", totalJifen);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            finish();
+                        }else {
+                            Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessMoneyActivity.class);
+                            intent.putExtra("money", totalMoney);
+                            intent.putExtra("jifen", totalJifen);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            finish();
+                        }
+
                     } else {
-                        Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessActivity.class);
-                        intent.putExtra("money", totalMoney);
-                        intent.putExtra("jifen", totalJifen);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        finish();
+                        if(StringUtil.isEmpty(totalMoney)){
+                            Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessActivity.class);
+                            intent.putExtra("money", totalMoney);
+                            intent.putExtra("jifen", totalJifen);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            finish();
+                        }else {
+                            Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessMoneyActivity.class);
+                            intent.putExtra("money", totalMoney);
+                            intent.putExtra("jifen", totalJifen);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            finish();
+                        }
                     }
 
                 }

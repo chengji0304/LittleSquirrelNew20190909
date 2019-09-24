@@ -12,9 +12,10 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
-    <uses-permission android:name="android.permission.INSTALL_PACKAGES"
+    <uses-permission
+        android:name="android.permission.INSTALL_PACKAGES"
         tools:ignore="ProtectedPermissions" />
+
     <application
         android:name=".config.MyApplication"
         android:allowBackup="false"
@@ -38,21 +39,21 @@
                 <action android:name="com.baidu.location.service_v2.2" />
             </intent-filter>
         </service>
+
         <receiver android:name=".service.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
         <receiver android:name=".service.UpgradeApkReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
-                <data android:scheme="package"/>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
+                <data android:scheme="package" />
             </intent-filter>
-
         </receiver>
+        <receiver android:name=".service.AlarmReceiver" />
 
-        <receiver android:name=".service.AlarmReceiver"/>
         <service
             android:name=".service.SerialService"
             android:enabled="true" />
@@ -68,7 +69,8 @@
         <receiver
             android:name=".service.UpdateReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="k8na5HTLwok6qvWwlNy2TsySLtTigtI9" />
@@ -79,7 +81,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".fragment.ADBannerActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -146,15 +147,14 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".activity.UserTeleActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">
+
         </activity>
         <activity
             android:name=".activity.UserSelectActivity"
@@ -198,8 +198,7 @@
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".activity.SlotSettingActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -217,27 +216,25 @@
             android:name=".activity.RightBoxSettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.LeftBoxSettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.UserOnLoadingActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan"></activity>
-
-        <activity android:name=".activity.UserOnLoadingActivity"
+        <activity
+            android:name=".activity.PrepareLoginActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan">
-
-            </activity>
-        <activity android:name=".activity.PrepareLoginActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".activity.DeliverSuccessMoneyActivity"></activity>
     </application>
 
 </manifest>

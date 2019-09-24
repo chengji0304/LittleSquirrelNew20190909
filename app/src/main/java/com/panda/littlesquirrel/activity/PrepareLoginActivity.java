@@ -93,7 +93,6 @@ public class PrepareLoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         prf = new PreferencesUtil(this);
-
         initData();
 
     }
@@ -106,7 +105,7 @@ public class PrepareLoginActivity extends BaseActivity {
         initTimer();
         timer = new Timer();
         MyTimerTask myTimerTask = new MyTimerTask();//定时器
-        timer.schedule(myTimerTask, 1000, 5000);//每隔5秒
+        timer.schedule(myTimerTask, 1000, 4000);//每隔5秒
 
     }
 
@@ -270,7 +269,7 @@ public class PrepareLoginActivity extends BaseActivity {
     }
 
     private void initTimer() {
-        backAndTime.setTimer(120);
+        backAndTime.setTimer(160);
         backAndTime.setBackVisableStatue(true);
         backAndTime.setVisableStatue(Boolean.valueOf(true));
         backAndTime.start();

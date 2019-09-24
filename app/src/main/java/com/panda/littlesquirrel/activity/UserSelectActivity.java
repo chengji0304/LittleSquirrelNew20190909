@@ -221,7 +221,7 @@ public class UserSelectActivity extends BaseActivity {
         //registerMessageReceiver();
         DogWatch();
         prf = new PreferencesUtil(this);
-       // Logger.e("deviceid--->" + prf.readPrefs(Constant.DEVICEID));
+        // Logger.e("deviceid--->" + prf.readPrefs(Constant.DEVICEID));
         System.loadLibrary("serial_port");
         serialPort = serialPortUtils.openSerialPort();
         mStartHandler = new Handler();
@@ -229,12 +229,13 @@ public class UserSelectActivity extends BaseActivity {
         sound = getIntent().getStringExtra("type");
         handler = new Handler();
         isLogin = prf.readPrefs(Constant.LOGIN_STATUS);
+        // prfList = prf.getDataList(Constant.DELIVER_LIST);
         initPollDev();
         initData();
         setListener();
 
         if (!StringUtil.isEmpty(prf.readPrefs(Constant.LATI))) {
-          //  Logger.e("deid---》" + prf.readPrefs(Constant.DEVICEID));
+            //  Logger.e("deid---》" + prf.readPrefs(Constant.DEVICEID));
             if (!StringUtil.isEmpty(prf.readPrefs(Constant.DEVICEID))) {
                 tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
                 getCategoryMsg();//获取饮料瓶总数
@@ -348,7 +349,7 @@ public class UserSelectActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(String s) {
-                   // Logger.e("s--->" + s);
+                    // Logger.e("s--->" + s);
                     //{"stateCode":1,"errorMessage":"处理成功","result":{"price":0.00,"countOrWeight":0.0,"category":"饮料瓶","canFullStatus":0}}
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(s);
                     String stateCode = jsonObject.getString("stateCode");
@@ -386,7 +387,7 @@ public class UserSelectActivity extends BaseActivity {
     public void getFindData(String s) {
         if (s.startsWith("S59") & s.endsWith(";")) {
             s = s.replaceAll("--", "-");
-            data=s;
+            data = s;
             try {
                 Map<String, String> info = StringUtil.getInfo(data);
                 JSONObject jsonObject = new JSONObject();
@@ -415,7 +416,7 @@ public class UserSelectActivity extends BaseActivity {
                 capacity3 = str61[3].split("-")[1];
                 capacity4 = str61[4].split("-")[1];
                 capacity5 = str61[5].split("-")[1];
-               // if(serialPortUtils!=null){
+                // if(serialPortUtils!=null){
 //                    serialPortUtils.closeSerialPort();
 //                }
                 getGarbagePrice();
@@ -477,7 +478,7 @@ public class UserSelectActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(String s) {
-                  //  Logger.e("s--->" + s);
+                    //  Logger.e("s--->" + s);
 
                 }
             });
@@ -494,7 +495,7 @@ public class UserSelectActivity extends BaseActivity {
     }
 
     private void initData() {
-       sendTimerBoaadCastReceiver(this);
+        sendTimerBoaadCastReceiver(this);
         initBanner();//底部banner
 
 
@@ -527,8 +528,8 @@ public class UserSelectActivity extends BaseActivity {
      */
     private void getDeviceID() {
         try {
-//             longa=117.352735;
-//             lati=34.153902;
+//            longa = 117.352735;
+//            lati = 34.153902;
             final JSONObject josnObject = new JSONObject();
             josnObject.put("iccid", SIMUtils.getICCID(this));
             josnObject.put("longitude", longa);
@@ -554,7 +555,7 @@ public class UserSelectActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(String s) {
-                   // Logger.e("s--->" + s);
+                    // Logger.e("s--->" + s);
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(s);
                     String stateCode = jsonObject.getString("stateCode");
                     if (stateCode.equals("1")) {
@@ -573,7 +574,7 @@ public class UserSelectActivity extends BaseActivity {
                 }
             });
         } catch (Exception e) {
-           // Logger.e("e--->" + e.getMessage());
+            // Logger.e("e--->" + e.getMessage());
 
         }
     }
@@ -729,7 +730,7 @@ public class UserSelectActivity extends BaseActivity {
                                     BigDecimal bigDecimal = new BigDecimal(quantity);
                                     BigDecimal bc = new BigDecimal("1000");
                                     if (Integer.valueOf(mlist.get(position).getFullstatus()) < 100 &
-                                            Double.valueOf(bigDecimal.divide(bc, 2, BigDecimal.ROUND_HALF_UP).toString()) < 40.00) {
+                                            Double.valueOf(bigDecimal.divide(bc, 2, BigDecimal.ROUND_HALF_UP).toString()) < 79.00) {
                                         if (StringUtil.isEmpty(isLogin)) {
                                             prf.writePrefs(Constant.GARBAGE_TYPE, mlist.get(position).getTypeName());
                                             openActivity(UserLoginActivity.class);
@@ -908,7 +909,8 @@ public class UserSelectActivity extends BaseActivity {
                 Intent intent = new Intent(UserSelectActivity.this, DeliverListFinishActivity.class);
                 startActivity(intent);
                 finish();
-               // clearStatus();
+
+                // clearStatus();
 //                openActivity(UserSelectActivity.class);
 //                finish();
             }
@@ -928,7 +930,7 @@ public class UserSelectActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-       // sendTimerBoaadCastReceiver(this);
+        // sendTimerBoaadCastReceiver(this);
         if (!StringUtil.isEmpty(sound)) {
             SoundPlayUtil.play(10);
         }
@@ -941,7 +943,7 @@ public class UserSelectActivity extends BaseActivity {
             userImage.setVisibility(View.VISIBLE);
             Glide.with(this)
                     .load(imageUrl)
-                    .error( R.drawable.icon_user)
+                    .error(R.drawable.icon_user)
                     .fallback(R.drawable.icon_user)
                     .skipMemoryCache(true)
                     .centerCrop()

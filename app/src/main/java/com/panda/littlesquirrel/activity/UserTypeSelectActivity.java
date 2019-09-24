@@ -501,7 +501,7 @@ public class UserTypeSelectActivity extends BaseActivity {
             jsonObjcet.put("openBoxStatus", 1);
             jsonObjcet.put("phoneNum", prf.readPrefs(Constant.USER_MOBILE));
             jsonObjcet.put("category", category);
-            jsonObjcet.put("canNum", number1);
+            jsonObjcet.put("canNum", number);
             addSubscription(Constant.HTTP_URL + "machine/delivery/openBoxNotify", jsonObjcet.toString(), new CallBack<String>() {
                 @Override
                 public void onStart() {

@@ -68,6 +68,7 @@ public class PollDevStatusService extends Service {
             JSONObject json = new JSONObject();
             if (!StringUtil.isEmpty(prf.readPrefs(Constant.DEVICEID))) {
                 json.put("deviceID", prf.readPrefs(Constant.DEVICEID));
+                json.put("version",StringUtil.getVersionName(getApplicationContext()));
                 Log.e("PollDevStatusService", "deviceID：" + prf.readPrefs(Constant.DEVICEID));
                 EasyHttp.post(Constant.HTTP_URL + "machine/setting/machineStatus")
                         .readTimeOut(30 * 1000)//局部定义读超时

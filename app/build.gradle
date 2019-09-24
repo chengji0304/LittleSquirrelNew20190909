@@ -7,8 +7,8 @@ android {
         applicationId "com.panda.littlesquirrel"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 9
-        versionName "1.1.1"
+        versionCode 10
+        versionName "1.1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -17,6 +17,7 @@ android {
         }
         multiDexEnabled true
     }
+
     buildTypes {
         release {
             minifyEnabled false

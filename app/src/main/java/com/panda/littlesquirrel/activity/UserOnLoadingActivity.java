@@ -157,6 +157,7 @@ public class UserOnLoadingActivity extends BaseActivity {
                 if(timer!=null){
                     timer.cancel();
                 }
+                prf.writePrefs(Constant.USER_NAME,nick_name);
                 prf.writePrefs(Constant.USER_MOBILE,phone_num);
                 prf.writePrefs(Constant.LOGIN_STATUS,"1");
                 prf.writePrefs(Constant.USER_IMAGE,avatar_url);

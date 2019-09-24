@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="28dp"
+                android:layout_marginLeft="38dp"
                 android:text="请选择回收类型开始投递"
                 android:textColor="#ff222222"
                 android:textSize="11sp" />
@@ -66,7 +66,6 @@
                 app:civ_border_width="1dp"
                 app:civ_border_color="#24E288"/>
             <Button
-
                 android:id="@+id/btn_big_piece"
                 android:layout_width="67dp"
                 android:layout_height="23dp"

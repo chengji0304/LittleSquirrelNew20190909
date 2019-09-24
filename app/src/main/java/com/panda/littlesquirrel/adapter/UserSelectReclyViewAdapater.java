@@ -109,7 +109,7 @@ public class UserSelectReclyViewAdapater extends RecyclerView.Adapter<UserSelect
                 String quantity= String.valueOf(Integer.valueOf(info.getQuantity())*10);
                 BigDecimal bigDecimal=new BigDecimal(quantity);
                 BigDecimal bc=new BigDecimal("1000");
-                if(Double.valueOf(bigDecimal.divide(bc,2,BigDecimal.ROUND_HALF_UP).toString())>=40.00) {
+                if(Double.valueOf(bigDecimal.divide(bc,2,BigDecimal.ROUND_HALF_UP).toString())>=79.00) {
                     holder.tv_full.setVisibility(View.VISIBLE);
                     holder.tv_full.setText("满箱");
                     holder.tv_full.setBackgroundResource(R.drawable.full_warning);

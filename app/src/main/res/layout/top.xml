@@ -80,18 +80,39 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:gravity="center">
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/ll_qrcode"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                   <ImageView
+                       android:layout_width="78dp"
+                       android:layout_height="match_parent" 
+                       android:src="@drawable/icon_kfcode"/>
+                    <TextView
+                        android:layout_marginLeft="1dp"
+                        android:textColor="#ff333333"
+                        android:layout_marginTop="8dp"
+                        android:textSize="8sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="小\n松\n鼠\n客\n服"/>
+                </LinearLayout>
 
-            <Button
-
-                android:id="@+id/btn_my_recycler"
-                android:layout_width="80dp"
-                android:layout_height="27dp"
-
-                android:background="@drawable/recycler_btn_shape_portal"
-
-                android:text="我是回收员"
-                android:textColor="#ffffffff"
-                android:textSize="10sp" />
+                <Button
+                    android:visibility="visible"
+                    android:id="@+id/btn_my_recycler"
+                    android:layout_width="80dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/recycler_btn_shape_portal"
+                    android:text="我是回收员"
+                    android:textColor="#ffffffff"
+                    android:textSize="10sp" />
+            </FrameLayout>
         </LinearLayout>
 
     </RelativeLayout>

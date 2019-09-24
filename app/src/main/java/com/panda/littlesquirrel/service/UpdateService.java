@@ -184,6 +184,7 @@ public class UpdateService extends Service {
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    prf.deletPrefs(Constant.USER_NAME);
                                     prf.deletPrefs(Constant.COLLECTOR_MOBILE);
                                     prf.deletPrefs(Constant.LOGIN_STATUS);
                                     prf.deletPrefs(Constant.USER_MOBILE);

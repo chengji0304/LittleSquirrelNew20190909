@@ -58,9 +58,9 @@ public class MyApplication extends Application {
                 .setWriteTimeOut(60 * 1000)
                 .setConnectTimeout(60 * 1000)
                 .setRetryCount(5)//默认网络不好自动重试3次
-                .setRetryDelay(3000)//每次延时500ms重试
+                .setRetryDelay(1000)//每次延时500ms重试
                 .setCertificates()
-                .setRetryIncreaseDelay(3000)//每次延时叠加500ms
+                .setRetryIncreaseDelay(500)//每次延时叠加500ms
                 .setCacheDiskConverter(new SerializableDiskConverter())//默认缓存使用序列化转化
                 .setCacheMaxSize(50 * 1024 * 1024)//设置缓存大小为50M
                 .setCacheVersion(1);//缓存版本为1

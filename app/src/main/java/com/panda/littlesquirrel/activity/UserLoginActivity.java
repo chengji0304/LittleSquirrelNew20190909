@@ -164,6 +164,8 @@ public class UserLoginActivity extends BaseActivity {
                         if (status.equals("1")) {
                             getUserOrCode();
                         } else {
+//                            openActivity(UserSelectActivity.class);
+//                            finish();
                             //故障页面
                           //  openActivity(UserSelectActivity.class);
                         }
@@ -217,7 +219,7 @@ public class UserLoginActivity extends BaseActivity {
                         SoundPlayUtil.play(11);
                         timer = new Timer();
                         MyTimerTask myTimerTask = new MyTimerTask();//定时器
-                        timer.schedule(myTimerTask, 1000, 5000);//每隔5秒
+                        timer.schedule(myTimerTask, 1000, 4000);//每隔5秒
                         // initTimer();
                         //machine/verification/getScanRecycler
                         //getScanRecycler();
@@ -279,6 +281,7 @@ public class UserLoginActivity extends BaseActivity {
                 @Override
                 public void onError(ApiException e) {
                     openActivity(UserSelectActivity.class);
+                    finish();
                 }
 
                 @Override
@@ -339,7 +342,7 @@ public class UserLoginActivity extends BaseActivity {
     }
 
     public void initTimer() {
-        backAndTime.setTimer(120);
+        backAndTime.setTimer(160);
         backAndTime.setBackVisableStatue(true);
         backAndTime.setVisableStatue(Boolean.valueOf(true));
         backAndTime.start();

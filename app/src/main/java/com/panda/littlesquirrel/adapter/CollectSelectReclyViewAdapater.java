@@ -97,12 +97,12 @@ public class CollectSelectReclyViewAdapater extends RecyclerView.Adapter<Collect
             holder.tv_perprice.setVisibility(View.INVISIBLE);
 
         }
-        if(Double.valueOf(bigDecimal.divide(bc,2,BigDecimal.ROUND_HALF_UP).toString())>=40.00){
+        if(Double.valueOf(bigDecimal.divide(bc,2,BigDecimal.ROUND_HALF_UP).toString())>=79.00){
             holder.tv_full.setVisibility(View.VISIBLE);
             holder.tv_full.setText("满箱");
             holder.tv_full.setBackgroundResource(R.drawable.full_warning);
         }
-        if(info.getTypeName().equals("玻璃")){
+        if(info.getTypeName().equals("饮料瓶")){
             if(Integer.valueOf(info.getQuantity())>250) {
                 holder.tv_full.setVisibility(View.VISIBLE);
                 holder.tv_full.setText("满箱");
