@@ -101,16 +101,16 @@
                     android:id="@+id/tv_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2.00 环保金"
+                    android:text="12.00 环保金"
                     android:textColor="#ff258cef"
                     android:textSize="20sp"/>
                 <TextView
                     android:layout_gravity="right|center"
                     android:id="@+id/tv_moneymsg"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="18dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="(等于2.00元、可在微信中提现)"
+                    android:text="(等于12.00元、可在微信中提现)"
                     android:textColor="#ff999999"
                     android:textSize="10sp"
                     />
@@ -150,7 +150,6 @@
                     android:id="@+id/tv_level"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="第47名"
                     android:textColor="#ff258cef"
                     android:textSize="20sp"/>
                 <LinearLayout
@@ -165,26 +164,27 @@
                         android:layout_gravity="center"
                         android:layout_width="12dp"
                         android:layout_height="12dp"
-                        android:src="@drawable/icon_up"/>
+                        />
                     <TextView
+                        android:id="@+id/tv_upordown"
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="10sp"
-                        android:text="相比昨天上升了"/>
+                        />
                     <TextView
                         android:id="@+id/tv_num"
                         android:layout_gravity="center"
                         android:textSize="10sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="34"/>
+                        />
                     <TextView
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="10sp"
-                        android:text="名"/>
+                        />
                 </LinearLayout>
 
             </LinearLayout>
@@ -229,7 +229,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="47dp"
+            android:layout_marginTop="40dp"
             android:gravity="center|left"
             android:text="由于网络问题，收益可能会延迟到账，请耐心等候"
             android:textColor="#ff999999"

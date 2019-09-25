@@ -392,6 +392,21 @@ public class DeliverListFinishActivity extends BaseActivity {
 
                 @Override
                 public void onError(ApiException e) {
+                    if(StringUtil.isEmpty(totalMoney)){
+                        Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessActivity.class);
+                        intent.putExtra("money", totalMoney);
+                        intent.putExtra("jifen", totalJifen);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        finish();
+                    }else {
+                        Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessMoneyActivity.class);
+                        intent.putExtra("money", totalMoney);
+                        intent.putExtra("jifen", totalJifen);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        finish();
+                    }
                    // Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessActivity.class);
 //                    intent.putExtra("money", totalMoney);
 //                    intent.putExtra("jifen", totalJifen);

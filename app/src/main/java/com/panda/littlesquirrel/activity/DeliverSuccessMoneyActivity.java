@@ -97,6 +97,8 @@ public class DeliverSuccessMoneyActivity extends BaseActivity {
     LinearLayout llLevel;
     @Bind(R.id.ll_totallevel)
     LinearLayout llTotallevel;
+    @Bind(R.id.tv_upordown)
+    TextView tvUpordown;
     private String imageUrl;
     private String money;
     private String jifen;
@@ -184,12 +186,15 @@ public class DeliverSuccessMoneyActivity extends BaseActivity {
                             int change_rank = obj.getIntValue("change_rank");
                             if (change_rank >= 0) {
                                 ivIcon.setImageResource(R.drawable.icon_up);
-                                tvNum.setText(change_rank+"");
+                                tvUpordown.setText("相比昨天上升了");
+                                tvNum.setText(change_rank + "");
                                 tvNum.setTextColor(Color.parseColor("#1FD67F"));
                             } else if (change_rank < 0) {
                                 ivIcon.setImageResource(R.drawable.icon_down);
-                                tvNum.setText(Math.abs(change_rank)+"");
+                                tvUpordown.setText("相比昨天下降了");
+                                tvNum.setText(Math.abs(change_rank) + "");
                                 tvNum.setTextColor(Color.parseColor("#FC6261"));
+
                             }
 
                         }
