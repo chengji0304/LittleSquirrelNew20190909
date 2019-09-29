@@ -102,6 +102,8 @@ public class DeliverListFinishActivity extends BaseActivity {
     LinearLayout llImage;
     @Bind(R.id.user_image)
     CircleImageView userImage;
+    @Bind(R.id.tv_redmsg)
+    TextView tvRedmsg;
     // private ArrayList<GarbageParam> mlist;
     private DeliverReclyViewAdapter adapter;
     private Double money = 0.0;
@@ -142,7 +144,7 @@ public class DeliverListFinishActivity extends BaseActivity {
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
             @Override
             public void onTimerFinish() {
-               // backAndTime.stop();
+                // backAndTime.stop();
                 btnOver.setEnabled(false);
                 saveRecord();
 
@@ -156,8 +158,8 @@ public class DeliverListFinishActivity extends BaseActivity {
         tvDeviceNum.setText("设备编号:" + prf.readPrefs(Constant.DEVICEID));
         Glide.with(this)
                 .load(imageUrl)
-                .error( R.drawable.icon_user)
-                .fallback( R.drawable.icon_user)
+                .error(R.drawable.icon_user)
+                .fallback(R.drawable.icon_user)
                 .skipMemoryCache(true)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存
@@ -172,6 +174,9 @@ public class DeliverListFinishActivity extends BaseActivity {
                 if (garbageParam.getCategory().equals("1")) {
                     money += Float.valueOf(StringUtil.getTotalPrice(garbageParam.getMoney(), garbageParam.getQuantity(), "6"));
                 } else {
+                    if(garbageParam.getCategory().equals("2")){
+                        tvRedmsg.setVisibility(View.VISIBLE);
+                    }
                     money += Float.valueOf(StringUtil.getTotalPrice(garbageParam.getMoney(), garbageParam.getQuantity(), "1"));
                 }
 
@@ -392,14 +397,14 @@ public class DeliverListFinishActivity extends BaseActivity {
 
                 @Override
                 public void onError(ApiException e) {
-                    if(StringUtil.isEmpty(totalMoney)){
+                    if (StringUtil.isEmpty(totalMoney)) {
                         Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessActivity.class);
                         intent.putExtra("money", totalMoney);
                         intent.putExtra("jifen", totalJifen);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         finish();
-                    }else {
+                    } else {
                         Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessMoneyActivity.class);
                         intent.putExtra("money", totalMoney);
                         intent.putExtra("jifen", totalJifen);
@@ -407,7 +412,7 @@ public class DeliverListFinishActivity extends BaseActivity {
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         finish();
                     }
-                   // Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessActivity.class);
+                    // Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessActivity.class);
 //                    intent.putExtra("money", totalMoney);
 //                    intent.putExtra("jifen", totalJifen);
 //                    startActivity(intent);
@@ -421,14 +426,14 @@ public class DeliverListFinishActivity extends BaseActivity {
                     JSONObject jsonObject = JSON.parseObject(s);
                     String stateCode = jsonObject.getString("stateCode");
                     if (stateCode.equals("1")) {
-                        if(StringUtil.isEmpty(totalMoney)){
+                        if (StringUtil.isEmpty(totalMoney)) {
                             Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessActivity.class);
                             intent.putExtra("money", totalMoney);
                             intent.putExtra("jifen", totalJifen);
                             startActivity(intent);
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             finish();
-                        }else {
+                        } else {
                             Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessMoneyActivity.class);
                             intent.putExtra("money", totalMoney);
                             intent.putExtra("jifen", totalJifen);
@@ -438,14 +443,14 @@ public class DeliverListFinishActivity extends BaseActivity {
                         }
 
                     } else {
-                        if(StringUtil.isEmpty(totalMoney)){
+                        if (StringUtil.isEmpty(totalMoney)) {
                             Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessActivity.class);
                             intent.putExtra("money", totalMoney);
                             intent.putExtra("jifen", totalJifen);
                             startActivity(intent);
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             finish();
-                        }else {
+                        } else {
                             Intent intent = new Intent(DeliverListFinishActivity.this, DeliverSuccessMoneyActivity.class);
                             intent.putExtra("money", totalMoney);
                             intent.putExtra("jifen", totalJifen);

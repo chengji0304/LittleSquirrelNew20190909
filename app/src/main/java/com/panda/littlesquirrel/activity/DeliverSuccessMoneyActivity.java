@@ -2,6 +2,7 @@ package com.panda.littlesquirrel.activity;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -184,15 +185,17 @@ public class DeliverSuccessMoneyActivity extends BaseActivity {
                             llLevel.setVisibility(View.GONE);
                         } else {
                             int change_rank = obj.getIntValue("change_rank");
-                            if (change_rank >= 0) {
+                            if (change_rank > 0) {
                                 ivIcon.setImageResource(R.drawable.icon_up);
                                 tvUpordown.setText("相比昨天上升了");
-                                tvNum.setText(change_rank + "");
+                                tvNum.setText(change_rank + "名");
                                 tvNum.setTextColor(Color.parseColor("#1FD67F"));
+                            }else if(change_rank == 0){
+                                tvUpordown.setText("当前小区排名没有变化要加油哦～");
                             } else if (change_rank < 0) {
                                 ivIcon.setImageResource(R.drawable.icon_down);
                                 tvUpordown.setText("相比昨天下降了");
-                                tvNum.setText(Math.abs(change_rank) + "");
+                                tvNum.setText(Math.abs(change_rank) + "名");
                                 tvNum.setTextColor(Color.parseColor("#FC6261"));
 
                             }
@@ -294,7 +297,7 @@ public class DeliverSuccessMoneyActivity extends BaseActivity {
                     prf.deletPrefs(Constant.USER_MOBILE);
                     prf.deletPrefs(Constant.DELIVER_LIST);
                     prf.deletPrefs(Constant.SAVE_LIST);
-                    openActivity(UserSelectActivity.class);
+                   openActivity(UserSelectActivity.class);
                     finish();
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 

@@ -100,6 +100,8 @@ public class DeliverFinishActivity extends BaseActivity {
     LinearLayout llImage;
     @Bind(R.id.user_image)
     CircleImageView userImage;
+    @Bind(R.id.tv_redmsg)
+    TextView tvRedmsg;
     // private SelcetInfo info;
     private PreferencesUtil prf;
     private ArrayList<GarbageParam> prfList;
@@ -126,7 +128,7 @@ public class DeliverFinishActivity extends BaseActivity {
         saveList = prf.getDataList(Constant.SAVE_LIST);
         prfList = prf.getDataList(Constant.DELIVER_LIST);
         key = prf.readPrefs(Constant.SIGNKEY);
-        imageUrl=prf.readPrefs(Constant.USER_IMAGE);
+        imageUrl = prf.readPrefs(Constant.USER_IMAGE);
         initData();
         initTimer();
     }
@@ -136,8 +138,8 @@ public class DeliverFinishActivity extends BaseActivity {
         initBanner();
         Glide.with(this)
                 .load(imageUrl)
-                .error( R.drawable.icon_user)
-                .fallback( R.drawable.icon_user)
+                .error(R.drawable.icon_user)
+                .fallback(R.drawable.icon_user)
                 .skipMemoryCache(true)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存//设置缓存
@@ -175,6 +177,7 @@ public class DeliverFinishActivity extends BaseActivity {
                     llMoney.setVisibility(View.GONE);
                     tvNoneMoneypoint.setText("本次投递未获得环保金");
                     moeny = "";
+                    tvRedmsg.setVisibility(View.VISIBLE);
                 } else {
                     imgCatogry.setImageResource(R.drawable.paper);
                     spannableString = new SpannableString("纸类 " + StringUtil.getTotalWeight(garbageParam.getQuantity()) + "公斤");
@@ -184,6 +187,7 @@ public class DeliverFinishActivity extends BaseActivity {
                     spannableString = new SpannableString("获得环保金 " + moeny);
                     spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#268EF1")), 5, spannableString.length(), 17);
                     tvValue.setText(spannableString);
+                    tvRedmsg.setVisibility(View.VISIBLE);
 
                 }
 
@@ -322,7 +326,7 @@ public class DeliverFinishActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-       // sendTimerBoaadCastReceiver(this);
+        // sendTimerBoaadCastReceiver(this);
         backAndTime.start();
         SoundPlayUtil.play(14);
 
@@ -335,7 +339,7 @@ public class DeliverFinishActivity extends BaseActivity {
         backAndTime.setOnTimerFinishListener(new BackAndTimerView.OnTimerFinishListener() {
             @Override
             public void onTimerFinish() {
-              //  backAndTime.stop();
+                //  backAndTime.stop();
                 btnOver.setEnabled(false);
                 saveRecord();
 
@@ -520,14 +524,14 @@ public class DeliverFinishActivity extends BaseActivity {
 
                 @Override
                 public void onError(ApiException e) {
-                    if(!StringUtil.isEmpty(moeny)){
+                    if (!StringUtil.isEmpty(moeny)) {
                         Intent intent = new Intent(DeliverFinishActivity.this, DeliverSuccessMoneyActivity.class);
                         intent.putExtra("money", moeny);
                         intent.putExtra("jifen", jifen);
                         startActivity(intent);
                         finish();
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    }else {
+                    } else {
                         Intent intent = new Intent(DeliverFinishActivity.this, DeliverSuccessActivity.class);
                         intent.putExtra("money", moeny);
                         intent.putExtra("jifen", jifen);
@@ -550,14 +554,14 @@ public class DeliverFinishActivity extends BaseActivity {
                     JSONObject jsonObject = JSON.parseObject(s);
                     String stateCode = jsonObject.getString("stateCode");
                     if (stateCode.equals("1")) {
-                        if(!StringUtil.isEmpty(moeny)){
+                        if (!StringUtil.isEmpty(moeny)) {
                             Intent intent = new Intent(DeliverFinishActivity.this, DeliverSuccessMoneyActivity.class);
                             intent.putExtra("money", moeny);
                             intent.putExtra("jifen", jifen);
                             startActivity(intent);
                             finish();
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        }else {
+                        } else {
                             Intent intent = new Intent(DeliverFinishActivity.this, DeliverSuccessActivity.class);
                             intent.putExtra("money", moeny);
                             intent.putExtra("jifen", jifen);
@@ -568,14 +572,14 @@ public class DeliverFinishActivity extends BaseActivity {
 
                     } else {
                         //backAndTime.setBackEnable(true);
-                        if(!StringUtil.isEmpty(moeny)){
+                        if (!StringUtil.isEmpty(moeny)) {
                             Intent intent = new Intent(DeliverFinishActivity.this, DeliverSuccessMoneyActivity.class);
                             intent.putExtra("money", moeny);
                             intent.putExtra("jifen", jifen);
                             startActivity(intent);
                             finish();
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        }else {
+                        } else {
                             Intent intent = new Intent(DeliverFinishActivity.this, DeliverSuccessActivity.class);
                             intent.putExtra("money", moeny);
                             intent.putExtra("jifen", jifen);

@@ -515,15 +515,13 @@ public class UserTypeSelectActivity extends BaseActivity {
 
                 @Override
                 public void onError(ApiException e) {
-                    backAndTime.setTimer(backAndTime.getCurrentTime());
-                    backAndTime.start();
+
                 }
 
                 @Override
                 public void onSuccess(String s) {
                     Logger.e("s-->" + s);
-                    backAndTime.setTimer(backAndTime.getCurrentTime());
-                    backAndTime.start();
+
 
                 }
             });

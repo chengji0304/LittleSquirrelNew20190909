@@ -141,6 +141,16 @@
 
 
         </LinearLayout>
+        <TextView
+           android:visibility="gone"
+            android:id="@+id/tv_redmsg"
+            android:textSize="10sp"
+            android:textColor="#FF6D6D"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="*纸箱请压扁后投递，否则可能计重不准，降低环保金发放金额"/>
     </LinearLayout>
 
 

@@ -57,7 +57,7 @@
         android:id="@+id/ll_money"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="60dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:visibility="visible">
@@ -94,7 +94,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="27dp"
-
             android:src="@drawable/bottle" />
 
         <TextView
@@ -107,7 +106,6 @@
             android:text="饮料瓶 1个"
             android:textColor="#ff333333"
             android:textSize="9sp" />
-
         <TextView
             android:id="@+id/tv_value"
             android:layout_width="wrap_content"
@@ -125,7 +123,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -154,6 +152,15 @@
 
 
     </LinearLayout>
-
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_redmsg"
+        android:textSize="10sp"
+        android:textColor="#FF6D6D"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="*纸箱请压扁后投递，否则可能计重不准，降低环保金发放金额"/>
 
 </LinearLayout>

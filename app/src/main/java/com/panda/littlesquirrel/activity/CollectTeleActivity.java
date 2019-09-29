@@ -153,7 +153,7 @@ public class CollectTeleActivity extends BaseActivity {
             @Override
             public void run() {
                 edAccount.getText().clear();
-              //  SoundPlayUtil.enablePlay = true;
+               // SoundPlayUtil.enablePlay = true;
                 edAccount.requestFocus();
 
             }
@@ -161,7 +161,7 @@ public class CollectTeleActivity extends BaseActivity {
         edPassword.post(new Runnable() {
             @Override
             public void run() {
-               // SoundPlayUtil.enablePlay = false;
+
                 edPassword.getText().clear();
             }
         });
@@ -224,8 +224,7 @@ public class CollectTeleActivity extends BaseActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     recyclerDigitalKeyboard.setEditText(edAccount);
-
-                }//   Logger.e("edAcount1--->"+edAccount.getText().length());
+                }
 
             }
 
@@ -235,6 +234,7 @@ public class CollectTeleActivity extends BaseActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     recyclerDigitalKeyboard.setEditText(edPassword);
+                  //  SoundPlayUtil.enablePlay = false;
                     //SoundPlayUtils.enablePaly = false;
                    // SoundPlayUtil.enablePlay=false;
                 }

@@ -459,6 +459,7 @@ public class UserTeleActivity extends BaseActivity {
                             // 手机号登录
                             mobileLogin();
                         } else {
+                            backAndTime.stop();
                             //故障页面  清三次 如果不行 就返回首页
                             openActivity(UserSelectActivity.class);
                             finish();
