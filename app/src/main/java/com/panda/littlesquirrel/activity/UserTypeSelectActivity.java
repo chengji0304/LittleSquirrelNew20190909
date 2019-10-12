@@ -159,7 +159,7 @@ public class UserTypeSelectActivity extends BaseActivity {
             if (s.contains("E27:")) {
                 openStatus = "1";
                 btnOpen.setEnabled(true);
-                backAndTime.stop();
+               // backAndTime.stop();
                 btnOpen.setText("投递完成");
                 btnOpen.setTextColor(Color.parseColor("#FFFFFF"));
                 openBoxNotify();
@@ -179,8 +179,8 @@ public class UserTypeSelectActivity extends BaseActivity {
                     public void run() {
                         //确认提醒
                         serialPortUtils.sendSerialPort("androidC50:0;");
-
                         weight = s;
+
                         Map<String, String> info = StringUtil.getInfo(weight);
                         Logger.d(info);
                         if (info.size() == 1) {
@@ -746,9 +746,6 @@ public class UserTypeSelectActivity extends BaseActivity {
             @Override
             public void onFinish() {
                 if (StringUtil.isEmpty(openStatus)) {
-//                  btnOpen.setText("打开箱门");
-//                  btnOpen.setEnabled(true);
-                    //
                     handle.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -756,9 +753,34 @@ public class UserTypeSelectActivity extends BaseActivity {
                         }
                     }, 800);
                 }
+            }
+        }.start();
+
+        timer = new CountDownTimer(1000 * 15, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                if (StringUtil.isEmpty(openStatus)) {
+//                  btnOpen.setText("打开箱门");
+//                  btnOpen.setEnabled(true);
+                    //
+                    handle.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            serialPortUtils.sendSerialPort("androidC57:1;");
+                        }
+                    }, 1000);
+                }
 
             }
         }.start();
+
+
 
     }
 

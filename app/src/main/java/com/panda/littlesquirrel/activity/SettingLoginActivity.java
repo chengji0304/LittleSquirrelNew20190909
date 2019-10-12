@@ -23,6 +23,7 @@ import com.panda.littlesquirrel.utils.DefaultExceptionHandler;
 import com.panda.littlesquirrel.utils.ForbiddenSysKeyBoardUtils;
 import com.panda.littlesquirrel.utils.ScreenUtil;
 
+import com.panda.littlesquirrel.utils.SoundPlayUtil;
 import com.panda.littlesquirrel.view.BackAndTimerView;
 import com.panda.littlesquirrel.view.DigitalKeyboard;
 import com.youth.banner.Banner;
@@ -104,6 +105,23 @@ public class SettingLoginActivity extends BaseActivity {
         btnMyRecycler.setVisibility(View.GONE);
         ForbiddenSysKeyBoardUtils.bannedSysKeyBoard(SettingLoginActivity.this, edAccount);
         ForbiddenSysKeyBoardUtils.bannedSysKeyBoard(SettingLoginActivity.this, edPassword);
+        edAccount.post(new Runnable() {
+            @Override
+            public void run() {
+                edAccount.getText().clear();
+                // SoundPlayUtil.enablePlay = true;
+                SoundPlayUtil.enablePlay = false;
+                edAccount.requestFocus();
+
+            }
+        });
+        edPassword.post(new Runnable() {
+            @Override
+            public void run() {
+
+                edPassword.getText().clear();
+            }
+        });
 //        edAccount.post(new Runnable() {
 //            @Override
 //            public void run() {

@@ -94,7 +94,7 @@ public class UpdateService extends Service {
 //        alarmService.setRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), (1000 * 60 * 60 * 24), broadcast);
         return super.onStartCommand(intent, flags, startId);
     }
-
+    /*
     private void upDateApk(String deviceID, String version) {
         try {
             JSONObject jsonObject = new JSONObject();
@@ -149,6 +149,63 @@ public class UpdateService extends Service {
         }
 
     }
+    */
+    private void upDateApk(String deviceID, String version) {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("device_id", deviceID);
+            jsonObject.put("version_number", version);
+            EasyHttp.post(Constant.HTTP_URL + "php/v1/machine/update_apk")
+                    .writeTimeOut(30 * 1000)//局部写超时30s,单位毫秒
+                    .readTimeOut(30 * 1000)//局部读超时30s,单位毫秒
+                    .connectTimeout(30 * 1000)//局部连接超时30s,单位毫秒
+                    //可以全局统一设置全局URL
+                    // 打开该调试开关并设置TAG,不需要就不要加入该行
+                    // 最后的true表示是否打印okgo的内部异常，一般打开方便调试错误
+                    //.debug("EasyHttp", true)
+                    .retryCount(6)//本次请求重试次数
+                    .retryDelay(500)//
+                    .upJson(jsonObject.toString())
+                    .execute(new CallBack<String>() {
+                        @Override
+                        public void onStart() {
+
+                        }
+
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(ApiException e) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(String s) {
+                            Logger.e("s--->" + s);
+                            com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSON.parseObject(s);
+                            String stateCode = jsonObject.getString("code");
+                            if (stateCode.equals("100")) {
+                                com.alibaba.fastjson.JSONObject object = com.alibaba.fastjson.JSON.parseObject(jsonObject.getString("extend"));
+                                String url = object.getString("url");
+                                String md5 = object.getString("md5");
+                                downFile(url, md5);
+
+                            } else {
+
+                            }
+
+                        }
+                    });
+
+        } catch (Exception e) {
+            Logger.e("e-->" + e.getMessage());
+        }
+
+    }
+
 
     private void downFile(String url, final String md5) {
         EasyHttp.downLoad(url)

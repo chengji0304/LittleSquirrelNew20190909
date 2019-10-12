@@ -154,6 +154,7 @@ public class CollectTeleActivity extends BaseActivity {
             public void run() {
                 edAccount.getText().clear();
                // SoundPlayUtil.enablePlay = true;
+                SoundPlayUtil.enablePlay = false;
                 edAccount.requestFocus();
 
             }

@@ -58,7 +58,7 @@ public class ADBannerActivity extends BaseActivity {
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         prf = new PreferencesUtil(this);
         if (!StringUtil.isEmpty(prf.readPrefs(Constant.DEVICEID))) {
-            if (Utils.hourMinuteBetween(new SimpleDateFormat("HH:mm").format(new Date()), "23:30", "23:59")||Utils.hourMinuteBetween(new SimpleDateFormat("HH:mm").format(new Date()), "04:30", "04:59")) {
+            if (Utils.hourMinuteBetween(new SimpleDateFormat("HH:mm").format(new Date()), "23:30", "23:59")||Utils.hourMinuteBetween(new SimpleDateFormat("HH:mm").format(new Date()), "04:30", "05:30")) {
                 /*如果服务正在运行，直接return*/
                 if (isServiceRunning("com.panda.littlesquirrel.service.UpdateService")) {
                     Log.e("服务正在运行", "return");

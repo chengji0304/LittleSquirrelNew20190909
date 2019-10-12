@@ -36,6 +36,7 @@ import com.panda.littlesquirrel.entity.HandShakeRecord;
 import com.panda.littlesquirrel.entity.PriceInfo;
 import com.panda.littlesquirrel.entity.SelcetInfo;
 import com.panda.littlesquirrel.fragment.ADBannerActivity;
+import com.panda.littlesquirrel.fragment.UserLoginFragment;
 import com.panda.littlesquirrel.service.PollDevStatusService;
 import com.panda.littlesquirrel.utils.CornerTransform;
 import com.panda.littlesquirrel.utils.DefaultExceptionHandler;
@@ -48,6 +49,8 @@ import com.panda.littlesquirrel.utils.StringUtil;
 import com.panda.littlesquirrel.utils.Utils;
 import com.panda.littlesquirrel.view.BackAndTimerView;
 import com.panda.littlesquirrel.view.ErrorStatusDialog;
+import com.panda.littlesquirrel.view.LoginTipDialog;
+import com.panda.littlesquirrel.view.PageTipsDialog;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -184,6 +187,7 @@ public class UserSelectActivity extends BaseActivity {
     private long exitTime = 0;
     private int count = 0;
     private String data;
+    private PageTipsDialog pageTipsDialog;
     private ArrayList<PriceInfo> mWastePrice;
     // String str = "S8:0;S59:431055193939415005D5FF39-1;S60:1-0,2-0,3-0;S61:0-0,1-10,2-110,3-30,4-40,5-88,6-60;S62:0-100,1-234,2-600,3-1200,4-3600,5-600,6-100;@";
     private ArrayList<PriceInfo> priceList;
@@ -217,8 +221,9 @@ public class UserSelectActivity extends BaseActivity {
         ScreenAdaptUtil.setCustomDesity(this, getApplication(), 360);
         setContentView(R.layout.activity_user_select);
         ButterKnife.bind(this);
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
+      //  Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
         //registerMessageReceiver();
+        SoundPlayUtil.enablePlay=true;
         DogWatch();
         prf = new PreferencesUtil(this);
         // Logger.e("deviceid--->" + prf.readPrefs(Constant.DEVICEID));
@@ -733,8 +738,51 @@ public class UserSelectActivity extends BaseActivity {
                                             Double.valueOf(bigDecimal.divide(bc, 2, BigDecimal.ROUND_HALF_UP).toString()) < 79.00) {
                                         if (StringUtil.isEmpty(isLogin)) {
                                             prf.writePrefs(Constant.GARBAGE_TYPE, mlist.get(position).getTypeName());
-                                            openActivity(UserLoginActivity.class);
-                                            finish();
+                                            Logger.e("种类--->"+mlist.get(position).getTypeName());
+                                            if(mlist.get(position).getTypeName().contains("纸类")){
+                                                //pageTipsDialog=new PageTipsDialog();
+                                                pageTipsDialog=new PageTipsDialog();
+                                                pageTipsDialog.setOnConfirmClickListener(new PageTipsDialog.ConfirmCallBack() {
+                                                    @Override
+                                                    public void onConfirm() {
+                                                        pageTipsDialog.dismiss();
+                                                        if (timer != null) {
+                                                            timer.cancel();
+                                                        }
+                                                        openActivity(UserLoginActivity.class);
+                                                        finish();
+                                                    }
+                                                });
+                                                pageTipsDialog.show(getFragmentManager(),"pager_tips");
+                                                //倒计时
+                                                if (timer != null) {
+                                                    timer.cancel();
+                                                }
+                                                timer = new CountDownTimer(1000 * 6, 1000) {
+                                                    @Override
+                                                    public void onTick(long millisUntilFinished) {
+                                                        int secondsRemaining = (int) (millisUntilFinished / 1000) - 1;
+                                                        if (secondsRemaining > 0) {
+
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFinish() {
+                                                        if(pageTipsDialog!=null){
+                                                            pageTipsDialog.dismiss();
+                                                            openActivity(UserLoginActivity.class);
+                                                            finish();
+                                                        }
+
+
+                                                    }
+                                                }.start();
+                                            }else {
+                                                openActivity(UserLoginActivity.class);
+                                                finish();
+                                            }
+
                                         } else {
                                             prf.writePrefs(Constant.GARBAGE_TYPE, mlist.get(position).getTypeName());
                                             openActivity(UserTypeSelectActivity.class);

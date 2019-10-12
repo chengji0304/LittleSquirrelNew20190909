@@ -113,7 +113,7 @@ public class SoundPlayUtil {
      * @param mapSoundID
      */
     public static void play(int mapSoundID) {
-        if (enablePlay) {
+        if (enablePlay==true) {
 //            if (lastMapSoundID != -1 && (mapSoundID > 9 || mapSoundID <= 9 && lastMapSoundID > 9)) {
 //                mSoundPool.stop(lastSoundID);
 //            }

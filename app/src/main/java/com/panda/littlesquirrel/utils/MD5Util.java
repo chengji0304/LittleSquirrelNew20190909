@@ -113,7 +113,7 @@ public class MD5Util {
 			e.printStackTrace();
 			return null;
 		}
-		return bytesToHexString(digest.digest()).toUpperCase();
+		return bytesToHexString(digest.digest());
 	}
 
 	public static String bytesToHexString(byte[] src) {

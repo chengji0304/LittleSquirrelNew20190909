@@ -52,7 +52,7 @@ public class PollDevStatusService extends Service {
             }
         }).start();
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int anHour = 18 * 60 * 1000; // 这是一小时的毫秒数
+        int anHour = 5 * 60 * 1000; // 这是5分钟的毫秒数
         long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
         Intent i = new Intent(this, AlarmReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
@@ -68,7 +68,7 @@ public class PollDevStatusService extends Service {
             JSONObject json = new JSONObject();
             if (!StringUtil.isEmpty(prf.readPrefs(Constant.DEVICEID))) {
                 json.put("deviceID", prf.readPrefs(Constant.DEVICEID));
-                json.put("version",StringUtil.getVersionName(getApplicationContext()));
+                json.put("version", StringUtil.getVersionName(getApplicationContext()));
                 Log.e("PollDevStatusService", "deviceID：" + prf.readPrefs(Constant.DEVICEID));
                 EasyHttp.post(Constant.HTTP_URL + "machine/setting/machineStatus")
                         .readTimeOut(30 * 1000)//局部定义读超时

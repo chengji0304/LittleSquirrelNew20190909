@@ -147,6 +147,7 @@ public class UserTeleActivity extends BaseActivity {
     }
 
     private void initData() {
+        SoundPlayUtil.enablePlay=false;
         sendTimerBoaadCastReceiver(this);
         initBanner();
         //3203120008
